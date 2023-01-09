@@ -1,0 +1,12 @@
+[submodule "guided-diffusion"]
+	path = guided-diffusion
+	url = https://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@github.com/zengxianyu/guided-diffusion
+[submodule "stylegan2-pytorch"]
+	path = stylegan2-pytorch
+	url = https://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@github.com/zengxianyu/stylegan2-pytorch
+[submodule "latent-diffusion"]
+	path = latent-diffusion
+	url = https://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@github.com/zengxianyu/latent-diffusion-private
+[submodule "logger"]
+	path = logger
+	url = https://github.com/zengxianyu/logger
