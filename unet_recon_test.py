@@ -1,26 +1,32 @@
 import pdb
+import argparse
 import numpy as np
 import os
 import torchvision
 import torch
 from PIL import Image
 import torch.nn.functional as F
+import sys
+sys.path.append("./guided-diffusion")
 from guided_diffusion.unet import UNetModel
 from guided_diffusion.image_datasets import load_data
 from logger import logger
-import sys
 
-#data_dir="/data/yzeng22/lsun_horse_adv256_clean_sample2048"
-#data_dir="output_horse_sample2048/init/output"
-data_dir=sys.argv[1]
-out_dir = sys.argv[2]
-#model_path="./output_autoenc_augblur_2_1.0_std0.2/net_40000.pth"
-#model_cls_path="./output_autoenc_augblur_2_1.0_std0.2/net_cls_40000.pth"
-model_path= "./imagenet_augblur_rotate_step20k_nonoise_tanh/net_124000.pth"
-model_cls_path= "./imagenet_augblur_rotate_step20k_nonoise_tanh/net_cls_124000.pth"
+parser = argparse.ArgumentParser(description="training unet and classfier")
+parser.add_argument("--data_dir", type=str)
+parser.add_argument("--log_dir", type=str)
+parser.add_argument("--model_path", type=str)
+parser.add_argument("--image_size", type=int, default=256)
+parser.add_argument("--batch_size", type=int, default=8)
+args = parser.parse_args()
+
+data_dir=args.data_dir
+out_dir = args.log_dir
+model_path= args.model_path
 dumt = 100
-image_size = 256
-batch_size = 8
+image_size = args.image_size
+batch_size = args.batch_size
+
 device = torch.device("cuda:0")
 
 if not os.path.exists(out_dir):
@@ -33,7 +39,9 @@ data = load_data(
     image_size=image_size,
     class_cond=False,
     return_name=True,
+    return_prefix=True,
     deterministic=True,
+    return_loader=True
 )
 
 print("create models")
@@ -60,6 +68,8 @@ net.load_state_dict(torch.load(model_path))
 net.to(device)
 net.eval()
 
+idx = 0
+data = iter(data)
 bdata = next(data, None)
 while bdata is not None:
     sample, cond = bdata
@@ -73,6 +83,10 @@ while bdata is not None:
     recon = (recon*255).astype(np.uint8).transpose((0,2,3,1))
     bdata = next(data, None)
     for i, name in enumerate(cond['filename']):
-        print(name)
+        print(f"{idx}/{len(data)}: {name}")
+        prefix = cond['prefix']
+        if not os.path.exists(f"{out_dir}/{prefix[i]}"):
+            os.mkdir(f"{out_dir}/{prefix[i]}")
         out = recon[i]
-        Image.fromarray(out).save(f"{out_dir}/{name}")
+        Image.fromarray(out).save(f"{out_dir}/{prefix[i]}/{name}")
+    idx += 1

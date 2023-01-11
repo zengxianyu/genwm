@@ -17,6 +17,7 @@ parser = argparse.ArgumentParser(description="training unet and classfier")
 
 parser.add_argument("--data_dir", type=str)
 parser.add_argument("--log_dir", type=str, default="output/train")
+parser.add_argument("--quant", action='store_true')
 parser.add_argument("--resume", type=str, required=False)
 parser.add_argument("--resume_cls", type=str, required=False)
 parser.add_argument("--w_cls0", type=float, default=0.1)
@@ -171,6 +172,11 @@ while nstep<train_steps:
     out = torch.tanh(out)
     # reconstruction loss
     loss_recon = F.mse_loss(out, sample)
+    if args.quant:
+        out_q = (out*255).byte().float()/255
+        loss_q = F.l1_loss(out, out_q.detach())
+    else:
+        loss_q = 0
     # classification loss
     #out = out+noise.detach()
     #sample = sample+noise.detach()
@@ -198,7 +204,7 @@ while nstep<train_steps:
         w_cls = w_cls0
     print(f"weight cls: {w_cls}")
 
-    loss = loss_cls*w_cls+loss_recon
+    loss = loss_cls*w_cls+loss_recon+loss_q*w_cls
 
     optim.zero_grad()
     loss.backward()

@@ -1,20 +1,27 @@
 import pdb
+import argparse
 import torchvision
 import torch
 import torch.nn.functional as F
+import sys
+sys.path.append("./guided-diffusion")
 from guided_diffusion.unet import UNetModel
 from guided_diffusion.image_datasets import load_data
 from logger import logger
-import sys
 
-data_dir=sys.argv[1]
-#model_path="./output_autoenc_augblur_2_1.0_std0.2/net_40000.pth"
-#model_cls_path="./output_autoenc_augblur_2_1.0_std0.2/net_cls_40000.pth"
-model_path= "./imagenet_augblur_rotate_step20k_nonoise_tanh/net_124000.pth"
-model_cls_path= "./imagenet_augblur_rotate_step20k_nonoise_tanh/net_cls_124000.pth"
+parser = argparse.ArgumentParser(description="training unet and classfier")
+parser.add_argument("--data_dir", type=str)
+parser.add_argument("--log_dir", type=str)
+parser.add_argument("--model_path", type=str)
+parser.add_argument("--image_size", type=int, default=256)
+parser.add_argument("--batch_size", type=int, default=8)
+args = parser.parse_args()
+
+data_dir=args.data_dir
+model_cls_path= args.model_path
 dumt = 100
-image_size = 256
-batch_size = 16
+image_size = args.image_size
+batch_size = args.batch_size
 device = torch.device("cuda:0")
 
 print("load data")
@@ -25,6 +32,7 @@ data = load_data(
     class_cond=False,
     return_name=True,
     deterministic=True,
+    return_loader=True
 )
 
 print("create classifier")
@@ -38,6 +46,7 @@ net_cls.eval()
 label_one = torch.Tensor([1]).to(device)[:,None]
 num_correct = 0
 num_all = 0
+data = iter(data)
 bdata = next(data, None)
 while bdata is not None:
     sample, cond = bdata
@@ -53,5 +62,4 @@ while bdata is not None:
         batch_acc = (pred==label).sum().float()/(bsize)
     print(f"batch acc: {batch_acc}")
     bdata = next(data, None)
-print("TotalAcc:")
-print(float(num_correct)/num_all)
+print(f"TotalAcc: {float(num_correct)/num_all}")
