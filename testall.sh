@@ -1,9 +1,14 @@
-pathmodel="output/cls0.5_tanh"
-pathout="samples/cls0.5_tanh"
+pathmodel="output/cls0.01_tanh"
+pathout="samples/cls0.01_tanh"
 pathdata="/data/yzeng22/imagenetval_sample1k_center256"
 mkdir $pathout
 files="
-90000
+4000
+8000
+20000
+40000
+60000
+80000
 100000
 110000
 120000

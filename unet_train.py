@@ -28,6 +28,7 @@ parser.add_argument("--train_steps", type=int, default=1e6)
 parser.add_argument("--log_interval", type=int, default=10)
 parser.add_argument("--display_interval", type=int, default=10)
 parser.add_argument("--save_interval", type=int, default=2000)
+parser.add_argument("--use_noise", action="store_true")
 args = parser.parse_args()
 
 def count_parameters(model):
@@ -162,24 +163,25 @@ while nstep<train_steps:
     sample, cond = next(data)
     sample = sample.to(device)
     noise = torch.randn_like(sample)*0.2
-    #flag = random.randint(0,1)
-    flag = 0
+    flag = random.randint(0,1) if args.use_noise else 0
     if flag:
         sample = sample+noise
     bsize,c,h,w = sample.size()
     t = torch.Tensor([dumt]*bsize).to(device)
     out = net(sample, t)
-    out = torch.tanh(out)
+    if not args.use_noise:
+        out = torch.tanh(out)
+    if args.quant:
+        out_clamp = torch.clamp(out, -1, 1)/2+0.5
+        out_q = (out_clamp*255).byte().float()/255*2-1
+        err = out_q-out
+        out = out+err.detach()
+        #loss_q = F.l1_loss(out_clamp, out_q.detach())
+    #else:
+    #    loss_q = 0
+    # classification loss
     # reconstruction loss
     loss_recon = F.mse_loss(out, sample)
-    if args.quant:
-        out_q = (out*255).byte().float()/255
-        loss_q = F.l1_loss(out, out_q.detach())
-    else:
-        loss_q = 0
-    # classification loss
-    #out = out+noise.detach()
-    #sample = sample+noise.detach()
     if out0 is None or sample0 is None or not flag:
         out0 = out
         sample0 = sample
@@ -190,10 +192,6 @@ while nstep<train_steps:
     sample = blur.blur(sample)
     out = flip(out)
     sample = flip(sample)
-    #T = torch.rand(3,3).to(device)
-    #T = (T/T.sum(1, keepdims=True))[None]
-    #sample = (T@sample.view(bsize,c,h*w)).view(bsize,c,h,w)
-    #out = (T@out.view(bsize,c,h*w)).view(bsize,c,h,w)
 
     pred = net_cls(torch.cat([out, sample],0))
     label = torch.cat([label_one.expand(bsize,-1), label_zero.expand(bsize,-1)],0)
@@ -204,7 +202,7 @@ while nstep<train_steps:
         w_cls = w_cls0
     print(f"weight cls: {w_cls}")
 
-    loss = loss_cls*w_cls+loss_recon+loss_q*w_cls
+    loss = loss_cls*w_cls+loss_recon#+loss_q*w_cls
 
     optim.zero_grad()
     loss.backward()
