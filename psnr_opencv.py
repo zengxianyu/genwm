@@ -8,6 +8,7 @@ from guided_diffusion.image_datasets import _list_image_files_recursively
 path_in = sys.argv[1]
 path_gt = sys.argv[2]
 
+
 files_in = _list_image_files_recursively(path_in)
 
 all_psnr = []

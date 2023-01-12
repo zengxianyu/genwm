@@ -13,6 +13,7 @@ from guided_diffusion.image_datasets import load_data
 from logger import logger
 
 parser = argparse.ArgumentParser(description="training unet and classfier")
+parser.add_argument("--return_prefix", action='store_true')
 parser.add_argument("--data_dir", type=str)
 parser.add_argument("--log_dir", type=str)
 parser.add_argument("--model_path", type=str)
@@ -39,9 +40,9 @@ data = load_data(
     image_size=image_size,
     class_cond=False,
     return_name=True,
-    return_prefix=True,
+    return_prefix=args.return_prefix,
     deterministic=True,
-    return_loader=True
+    return_loader=True,
 )
 
 print("create models")
@@ -84,9 +85,13 @@ while bdata is not None:
     bdata = next(data, None)
     for i, name in enumerate(cond['filename']):
         print(f"{idx}/{len(data)}: {name}")
-        prefix = cond['prefix']
-        if not os.path.exists(f"{out_dir}/{prefix[i]}"):
-            os.mkdir(f"{out_dir}/{prefix[i]}")
+        if 'prefix' in cond:
+            prefix = cond['prefix']
+            if not os.path.exists(f"{out_dir}/{prefix[i]}"):
+                os.mkdir(f"{out_dir}/{prefix[i]}")
+            full_path = f"{out_dir}/{prefix[i]}"
+        else:
+            full_path = out_dir
         out = recon[i]
-        Image.fromarray(out).save(f"{out_dir}/{prefix[i]}/{name}")
+        Image.fromarray(out).save(f"{full_path}/{name}")
     idx += 1
