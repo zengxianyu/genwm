@@ -234,7 +234,7 @@ while nstep<train_steps:
     if net_p is not None:
         print("using net p")
         out_inv = net_p(out.detach(), t)
-        out_inv = torch.tanh(out)
+        out_inv = torch.tanh(out_inv)
         loss_recon_inv = F.mse_loss(out_inv, sample)
         loss_recon = loss_recon + loss_recon_inv
     # augmentation
