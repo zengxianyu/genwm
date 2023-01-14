@@ -1,4 +1,5 @@
 import pdb
+import os
 import argparse
 import numpy as np
 import random
@@ -19,7 +20,6 @@ parser.add_argument("--data_dir", type=str)
 parser.add_argument("--log_dir", type=str, default="output/train")
 parser.add_argument("--quant", action='store_true')
 parser.add_argument("--resume", type=str, required=False)
-parser.add_argument("--resume_cls", type=str, required=False)
 parser.add_argument("--w_cls0", type=float, default=0.1)
 parser.add_argument("--image_size", type=int, default=256)
 parser.add_argument("--batch_size", type=int, default=24)
@@ -129,11 +129,6 @@ net = UNetModel(
         resblock_updown=True,
         use_new_attention_order=True,
     )
-if args.resume is not None:
-    print(f"resume {args.resume}")
-    net.load_state_dict(torch.load(args.resume))
-net.to(device)
-net.train()
 print("model parameter number:")
 print(count_parameters(net))
 
@@ -141,20 +136,38 @@ print("create classifier")
 net_cls = torchvision.models.resnet34(pretrained=False)
 net_cls.fc = torch.nn.Linear(net_cls.fc.in_features,1)
 torch.nn.init.kaiming_normal_(net_cls.fc.weight)
-if args.resume_cls is not None:
-    print(f"resume cls {args.resume_cls}")
-    net_cls.load_state_dict(torch.load(args.resume_cls))
-net_cls.to(device)
-net_cls.train()
 print("classifier parameter number:")
 print(count_parameters(net_cls))
 
-print("start training")
+if args.resume is not None:
+    print(f"resume {args.resume}")
+    path_ckpt = f"{args.log_dir}/net_{args.resume}.pth"
+    if os.path.exists(path_ckpt):
+        print(f"loading {path_ckpt}")
+        net.load_state_dict(torch.load(path_ckpt))
+    path_ckpt = f"{args.log_dir}/net_cls_{args.resume}.pth"
+    if os.path.exists(path_ckpt):
+        print(f"loading {path_ckpt}")
+        net_cls.load_state_dict(torch.load(path_ckpt))
+
+net.to(device)
+net.train()
+net_cls.to(device)
+net_cls.train()
+
 optim = torch.optim.Adam(
         list(net.parameters())+list(net_cls.parameters()), 
         lr=1e-4)
 
-nstep=0
+if args.resume is not None:
+    path_ckpt = f"{args.log_dir}/optim_{args.resume}.pth"
+    if os.path.exists(path_ckpt):
+        print(f"loading {path_ckpt}")
+        optim.load_state_dict(torch.load(path_ckpt))
+
+print("start training")
+
+nstep=0 if args.resume is None else int(args.resume)
 label_one = torch.Tensor([1]).to(device)[:,None]
 label_zero = torch.Tensor([0]).to(device)[:,None]
 out0 = None
@@ -225,6 +238,7 @@ while nstep<train_steps:
         net.cpu()
         torch.save(net.state_dict(), f"{args.log_dir}/net_{nstep}.pth")
         torch.save(net_cls.state_dict(), f"{args.log_dir}/net_cls_{nstep}.pth")
+        torch.save(optim.state_dict(), f"{args.log_dir}/optim_{nstep}.pth")
         net.to(device)
         net_cls.to(device)
     nstep+=1
