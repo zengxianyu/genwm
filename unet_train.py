@@ -19,6 +19,7 @@ parser = argparse.ArgumentParser(description="training unet and classfier")
 parser.add_argument("--data_dir", type=str)
 parser.add_argument("--log_dir", type=str, default="output/train")
 parser.add_argument("--patch", action='store_true')
+parser.add_argument("--fix_patch", action='store_true')
 parser.add_argument("--quant", action='store_true')
 parser.add_argument("--resume", type=str, required=False)
 parser.add_argument("--w_cls0", type=float, default=0.1)
@@ -222,8 +223,8 @@ while nstep<train_steps:
         out = out+err.detach()
     loss_recon = F.mse_loss(out, sample)
     # net p train
-    if net_p is not None:
-        print("using net p")
+    if net_p is not None and not args.fix_patch:
+        print("updating net p")
         optim_p.zero_grad()
         _out_inv = net_p(out.detach(), t)
         _out_inv = torch.tanh(_out_inv)
@@ -232,6 +233,7 @@ while nstep<train_steps:
         optim_p.step()
     # augmentation
     if net_p is not None:
+        print("using net p")
         out_inv = net_p(out, t)
         out_inv = torch.tanh(out_inv)
         out_inv0 = out_inv
@@ -266,7 +268,7 @@ while nstep<train_steps:
         print(f"step {nstep} cls loss: {loss_cls.item()}")
         writer.add_scalar("recon loss", loss_recon.item(), nstep)
         writer.add_scalar("cls loss", loss_cls.item(), nstep)
-        if net_p is not None:
+        if net_p is not None and not args.fix_patch:
             print(f"step {nstep} net p loss: {loss_recon_inv.item()}")
             writer.add_scalar("net p loss", loss_recon_inv.item(), nstep)
     if nstep % display_interval == 0:
