@@ -274,6 +274,9 @@ while nstep<train_steps:
         writer.add_single_image("gt", disp/2+0.5)
         disp = out0[:nd].transpose(0,1).reshape(-1, nd*h,w)
         writer.add_single_image("result", disp/2+0.5)
+        if net_p is not None:
+            disp = out_inv[:nd].transpose(0,1).reshape(-1, nd*h,w)
+            writer.add_single_image("patch", disp/2+0.5)
         writer.write_html()
         print(f"step {nstep} saved images")
     if nstep % save_interval == 0:
