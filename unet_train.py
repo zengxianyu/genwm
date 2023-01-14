@@ -29,16 +29,11 @@ parser.add_argument("--train_steps", type=int, default=1e6)
 parser.add_argument("--log_interval", type=int, default=10)
 parser.add_argument("--display_interval", type=int, default=10)
 parser.add_argument("--save_interval", type=int, default=2000)
-parser.add_argument("--use_noise", action="store_true")
 args = parser.parse_args()
 
 def count_parameters(model):
     return sum(p.numel() for p in model.parameters() if p.requires_grad)
 
-#data_dir="/data/common/ILSVRC/Data/CLS-LOC/train"
-#log_dir = "./imagenet_augblur_rotate_step20k_nonoise_tanh_cls0.01"
-#resume=None#"./imagenet_augblur_2_1.0_std0.2_rotate/net_6000.pth"
-#resume_cls=None#"./imagenet_augblur_2_1.0_std0.2_rotate/net_cls_6000.pth"
 dumt = 100
 w_cls0 = args.w_cls0
 image_size = args.image_size
@@ -99,10 +94,6 @@ blur = GaussianBlur(device=device, sigmas=np.linspace(0.01,1,10))
 flip = torchvision.transforms.RandomHorizontalFlip(0.5)
 
 print("load data")
-#transforms = transforms.Compose([
-#    transforms.RandomApply([transforms.RandomAffine(15)], p=0.2),
-#    transforms.RandomApply([transforms.ColorJitter(brightness=0.4, saturation=0.2)], p=0.5),
-#    transforms.RandomApply([transforms.GaussianBlur(5)], p=0.3)])
 data = load_data(
     data_dir=args.data_dir,
     batch_size=batch_size,
@@ -190,65 +181,72 @@ if net_p is not None:
     net_p.train()
 
 list_param = list(net.parameters())+list(net_cls.parameters())
-if net_p is not None:
-    list_param += list(net_p.parameters())
 optim = torch.optim.Adam(
         list_param, 
         lr=1e-4)
+if net_p is not None:
+    optim_p = torch.optim.Adam(
+            net_p.parameters(), 
+            lr=1e-4)
 
 if args.resume is not None:
     path_ckpt = f"{args.log_dir}/optim_{args.resume}.pth"
     if os.path.exists(path_ckpt):
         print(f"loading {path_ckpt}")
         optim.load_state_dict(torch.load(path_ckpt))
+    if net_p is not None:
+        path_ckpt = f"{args.log_dir}/optim_p_{args.resume}.pth"
+        if os.path.exists(path_ckpt):
+            print(f"loading {path_ckpt}")
+            optim_p.load_state_dict(torch.load(path_ckpt))
 
 print("start training")
 
 nstep=0 if args.resume is None else int(args.resume)
 label_one = torch.Tensor([1]).to(device)[:,None]
 label_zero = torch.Tensor([0]).to(device)[:,None]
-out0 = None
-sample0 = None
 while nstep<train_steps:
     sample, cond = next(data)
     sample = sample.to(device)
     noise = torch.randn_like(sample)*0.2
-    flag = random.randint(0,1) if args.use_noise else 0
-    if flag:
-        sample = sample+noise
     bsize,c,h,w = sample.size()
     t = torch.Tensor([dumt]*bsize).to(device)
     out = net(sample, t)
-    if not args.use_noise:
-        out = torch.tanh(out)
+    out = torch.tanh(out)
+    out0 = out
+    sample0 = sample
     if args.quant:
         out_clamp = torch.clamp(out, -1, 1)/2+0.5
         out_q = (out_clamp*255).byte().float()/255*2-1
         err = out_q-out
         out = out+err.detach()
     loss_recon = F.mse_loss(out, sample)
-    if out0 is None or sample0 is None or not flag:
-        out0 = out
-        sample0 = sample
-    # net p
+    # net p train
     if net_p is not None:
         print("using net p")
-        out_inv = net_p(out.detach(), t)
-        out_inv = torch.tanh(out_inv)
-        loss_recon_inv = F.mse_loss(out_inv, sample)
-        loss_recon = loss_recon + loss_recon_inv
+        optim_p.zero_grad()
+        _out_inv = net_p(out.detach(), t)
+        _out_inv = torch.tanh(_out_inv)
+        loss_recon_inv = F.mse_loss(_out_inv, sample)
+        loss_recon_inv.backward()
+        optim_p.step()
     # augmentation
+    if net_p is not None:
+        out_inv = net_p(out, t)
+        out_inv = torch.tanh(out_inv)
+        out_inv0 = out_inv
+        out_inv = blur.blur(out_inv)
     out = rotation.rotate(out)
-    sample = rotation.rotate(sample)
     out = blur.blur(out)
-    sample = blur.blur(sample)
     out = flip(out)
+    sample = rotation.rotate(sample)
+    sample = blur.blur(sample)
     sample = flip(sample)
     
     batch_in = torch.cat([out, sample],0)
     label = torch.cat([label_one.expand(bsize,-1), label_zero.expand(bsize,-1)],0)
     if net_p is not None:
-        batch_in = torch.cat([out_inv.detach(), batch_in, sample],0)
+        batch_in = torch.cat([out_inv, batch_in, sample],0)
         label = torch.cat([label_one.expand(bsize,-1), label, label_zero.expand(bsize,-1)],0)
     pred = net_cls(batch_in)
     loss_cls = F.binary_cross_entropy_with_logits(pred, label)
@@ -268,6 +266,9 @@ while nstep<train_steps:
         print(f"step {nstep} cls loss: {loss_cls.item()}")
         writer.add_scalar("recon loss", loss_recon.item(), nstep)
         writer.add_scalar("cls loss", loss_cls.item(), nstep)
+        if net_p is not None:
+            print(f"step {nstep} net p loss: {loss_recon_inv.item()}")
+            writer.add_scalar("net p loss", loss_recon_inv.item(), nstep)
     if nstep % display_interval == 0:
         nd = 4
         disp = sample0[:nd].transpose(0,1).reshape(-1, nd*h,w)
@@ -275,7 +276,7 @@ while nstep<train_steps:
         disp = out0[:nd].transpose(0,1).reshape(-1, nd*h,w)
         writer.add_single_image("result", disp/2+0.5)
         if net_p is not None:
-            disp = out_inv[:nd].transpose(0,1).reshape(-1, nd*h,w)
+            disp = out_inv0[:nd].transpose(0,1).reshape(-1, nd*h,w)
             writer.add_single_image("patch", disp/2+0.5)
         writer.write_html()
         print(f"step {nstep} saved images")
@@ -291,4 +292,5 @@ while nstep<train_steps:
             net_p.cpu()
             torch.save(net_p.state_dict(), f"{args.log_dir}/net_p_{nstep}.pth")
             net_p.to(device)
+            torch.save(optim_p.state_dict(), f"{args.log_dir}/optim_p_{nstep}.pth")
     nstep+=1
