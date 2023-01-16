@@ -244,7 +244,6 @@ while nstep<train_steps:
         out_inv = net_p(out, t)
         out_inv = torch.tanh(out_inv)
         out_inv0 = out_inv
-        out_inv = blur.blur(out_inv)
     
     batch_in = torch.cat([out, sample],0)
     label = torch.cat([label_one.expand(bsize,-1), label_zero.expand(bsize,-1)],0)
