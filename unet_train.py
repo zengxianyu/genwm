@@ -231,6 +231,13 @@ while nstep<train_steps:
         loss_recon_inv = F.mse_loss(_out_inv, sample)
         loss_recon_inv.backward()
         optim_p.step()
+    out = rotation.rotate(out)
+    out = blur.blur(out)
+    out = flip(out)
+    sample = rotation.rotate(sample)
+    sample = blur.blur(sample)
+    sample = flip(sample)
+
     # augmentation
     if net_p is not None:
         print("using net p")
@@ -238,12 +245,6 @@ while nstep<train_steps:
         out_inv = torch.tanh(out_inv)
         out_inv0 = out_inv
         out_inv = blur.blur(out_inv)
-    out = rotation.rotate(out)
-    out = blur.blur(out)
-    out = flip(out)
-    sample = rotation.rotate(sample)
-    sample = blur.blur(sample)
-    sample = flip(sample)
     
     batch_in = torch.cat([out, sample],0)
     label = torch.cat([label_one.expand(bsize,-1), label_zero.expand(bsize,-1)],0)
