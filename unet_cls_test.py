@@ -49,6 +49,8 @@ net_cls.to(device)
 net_cls.eval()
 
 def predict(label_gt, data):
+    y_scores=[]
+    y_true=[]
     num_correct = 0
     num_all = 0
     bdata = next(data, None)
@@ -61,20 +63,39 @@ def predict(label_gt, data):
         t = torch.Tensor([dumt]*bsize).to(device)
         with torch.no_grad():
             pred = net_cls(sample)
+            y_scores.extend(pred.squeeze().cpu().numpy().tolist())
+            y_true.extend(label.squeeze().int().cpu().numpy().tolist())
             pred = (pred>0).float()
             num_correct += (pred==label).sum()
             batch_acc = (pred==label).sum().float()/(bsize)
         print(f"batch acc: {batch_acc}")
         bdata = next(data, None)
-    return num_correct, num_all
+    return num_correct, num_all, y_scores, y_true
 
+y_scores=[]
+y_true=[]
 # fake images
 data = load_data_from_path(args.data_dir)
 label_one = torch.Tensor([1]).to(device)[:,None]
-num_correct, num_all = predict(label_one, data)
+num_correct, num_all, _y_scores, _y_true = predict(label_one, data)
+y_scores.extend(_y_scores)
+y_true.extend(_y_true)
 
 # real images
 data = load_data_from_path(args.gt_dir)
 label_zero = torch.Tensor([0]).to(device)[:,None]
-num_correct_gt, num_all_gt = predict(label_zero, data)
-print(f"TotalAcc: {float(num_correct+num_correct_gt)/(num_all+num_all_gt)}")
+num_correct_gt, num_all_gt, _y_scores, _y_true = predict(label_zero, data)
+y_scores.extend(_y_scores)
+y_true.extend(_y_true)
+total_acc = float(num_correct+num_correct_gt)/(num_all+num_all_gt)
+
+# save
+with open(f"{args.data_dir}.acc.txt","w") as f:
+    f.write(f"{total_acc}")
+y_scores = [f"{y}\n"  for y in y_scores]
+y_true = [f"{y}\n" for y in y_true]
+with open(f"{args.data_dir}.yscores.txt","w") as f:
+    f.writelines(y_scores)
+with open(f"{args.data_dir}.ytrue.txt","w") as f:
+    f.writelines(y_true)
+print(f"TotalAcc: {total_acc}")
