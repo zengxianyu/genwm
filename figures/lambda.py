@@ -5,7 +5,7 @@ import matplotlib.pyplot as plt
 import argparse
 
 # configs
-font = {'family': 'monospace', 'weight': 'normal', 'size': 16}
+font = {'family': 'monospace', 'weight': 'normal', 'size': 22}
 matplotlib.rc('font', **font)
 
 # arguments
