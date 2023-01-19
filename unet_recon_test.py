@@ -1,4 +1,5 @@
 import pdb
+import math
 import argparse
 import numpy as np
 import os
@@ -13,6 +14,7 @@ from guided_diffusion.image_datasets import load_data
 from logger import logger
 
 parser = argparse.ArgumentParser(description="training unet and classfier")
+parser.add_argument("--num_labels", type=int, default=2)
 parser.add_argument("--return_prefix", action='store_true')
 parser.add_argument("--data_dir", type=str)
 parser.add_argument("--log_dir", type=str)
@@ -20,6 +22,9 @@ parser.add_argument("--model_path", type=str)
 parser.add_argument("--image_size", type=int, default=256)
 parser.add_argument("--batch_size", type=int, default=8)
 args = parser.parse_args()
+
+num_bit = int(math.log(args.num_labels, 2))
+assert 2**num_bit == args.num_labels
 
 data_dir=args.data_dir
 out_dir = args.log_dir
@@ -30,11 +35,11 @@ batch_size = args.batch_size
 
 device = torch.device("cuda:0")
 
-if not os.path.exists(out_dir):
-    os.mkdir(out_dir)
+if not os.path.exists(args.log_dir):
+    os.mkdir(args.log_dir)
 
 print("load data")
-data = load_data(
+dataloader = load_data(
     data_dir=data_dir,
     batch_size=batch_size,
     image_size=image_size,
@@ -55,7 +60,7 @@ net = UNetModel(
         attention_resolutions=(8, 16, 32),
         dropout=0.1,
         channel_mult=(1,1,2,2,4,4),
-        num_classes=None,
+        num_classes=-num_bit if args.num_labels>2 else None,
         use_checkpoint=False,
         use_fp16=False,
         num_heads=4,
@@ -69,29 +74,46 @@ net.load_state_dict(torch.load(model_path))
 net.to(device)
 net.eval()
 
-idx = 0
-data = iter(data)
-bdata = next(data, None)
-while bdata is not None:
-    sample, cond = bdata
-    sample = sample.to(device)
-    bsize,c,h,w = sample.size()
-    t = torch.Tensor([dumt]*bsize).to(device)
-    with torch.no_grad():
-        recon = net(sample, t)
-    #recon = torch.clamp(recon,-1,1).detach().cpu().numpy()/2+0.5
-    recon = torch.tanh(recon).detach().cpu().numpy()/2+0.5
-    recon = (recon*255).astype(np.uint8).transpose((0,2,3,1))
+for rand_label in range(1, args.num_labels):
+    idx = 0
+    data = iter(dataloader)
     bdata = next(data, None)
-    for i, name in enumerate(cond['filename']):
-        print(f"{idx}/{len(data)}: {name}")
-        if 'prefix' in cond:
-            prefix = cond['prefix']
-            if not os.path.exists(f"{out_dir}/{prefix[i]}"):
-                os.mkdir(f"{out_dir}/{prefix[i]}")
-            full_path = f"{out_dir}/{prefix[i]}"
+    while bdata is not None:
+        sample, cond = bdata
+        sample = sample.to(device)
+        bsize,c,h,w = sample.size()
+
+        print(f"using label {rand_label}")
+        label_one = "{0:b}".format(rand_label).zfill(num_bit)
+        print(f"using label {label_one}")
+        label_one = [int(s) for s in label_one]
+        label_one = torch.Tensor(label_one)[None].to(device)
+
+        if args.num_labels > 2:
+            out_dir = f"{args.log_dir}/{rand_label}"
+            if not os.path.exists(out_dir):
+                os.mkdir(out_dir)
+            y_in = label_one.expand(bsize,-1)
         else:
-            full_path = out_dir
-        out = recon[i]
-        Image.fromarray(out).save(f"{full_path}/{name}")
-    idx += 1
+            out_dir = args.log_dir
+            y_in = None
+
+        t = torch.Tensor([dumt]*bsize).to(device)
+        with torch.no_grad():
+            recon = net(sample, t, y=y_in)
+        #recon = torch.clamp(recon,-1,1).detach().cpu().numpy()/2+0.5
+        recon = torch.tanh(recon).detach().cpu().numpy()/2+0.5
+        recon = (recon*255).astype(np.uint8).transpose((0,2,3,1))
+        bdata = next(data, None)
+        for i, name in enumerate(cond['filename']):
+            print(f"{idx}/{len(data)}: {name}")
+            if 'prefix' in cond:
+                prefix = cond['prefix']
+                if not os.path.exists(f"{out_dir}/{prefix[i]}"):
+                    os.mkdir(f"{out_dir}/{prefix[i]}")
+                full_path = f"{out_dir}/{prefix[i]}"
+            else:
+                full_path = out_dir
+            out = recon[i]
+            Image.fromarray(out).save(f"{full_path}/{name}")
+        idx += 1
