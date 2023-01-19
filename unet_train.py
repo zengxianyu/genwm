@@ -222,6 +222,7 @@ while nstep<train_steps:
         err = out_q-out
         out = out+err.detach()
     loss_recon = F.mse_loss(out, sample)
+
     # net p train
     if net_p is not None and not args.fix_patch:
         print("updating net p")
@@ -231,6 +232,9 @@ while nstep<train_steps:
         loss_recon_inv = F.mse_loss(_out_inv, sample)
         loss_recon_inv.backward()
         optim_p.step()
+
+
+    # augmentation
     out = rotation.rotate(out)
     out = blur.blur(out)
     out = flip(out)
@@ -238,12 +242,16 @@ while nstep<train_steps:
     sample = blur.blur(sample)
     sample = flip(sample)
 
-    # augmentation
     if net_p is not None:
         print("using net p")
         out_inv = net_p(out, t)
         out_inv = torch.tanh(out_inv)
         out_inv0 = out_inv
+        if args.quant:
+            out_clamp_inv = torch.clamp(out_inv, -1, 1)/2+0.5
+            out_q_inv = (out_clamp_inv*255).byte().float()/255*2-1
+            err = out_q_inv-out_inv
+            out_inv = out_inv+err.detach()
     
     batch_in = torch.cat([out, sample],0)
     label = torch.cat([label_one.expand(bsize,-1), label_zero.expand(bsize,-1)],0)

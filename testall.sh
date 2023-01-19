@@ -1,15 +1,12 @@
-pathmodel="output/q_start100_cls1.0_tanh"
-pathout="samples/q_start100_cls1.0_tanh"
+pathmodel="ffhq/q_start100_cls0.1_tanh_patch_v6"
+pathout="samples_patch/q_start100_cls1.0_tanh"
 pathdata="/data/FFHQ/images256x256_sample1k"
 mkdir $pathout
-#files="
-#4000
-#8000
-#20000
-#40000
-#60000
-#80000
-#"
+files="
+4000
+8000
+10000
+"
 #files="
 #100000
 #120000
@@ -18,9 +15,9 @@ mkdir $pathout
 #180000
 #200000
 #"
-files="
-200000
-"
+#files="
+#200000
+#"
 
 for file in $files
 do
