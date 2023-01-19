@@ -1,4 +1,5 @@
 import pdb
+import math
 import os
 import argparse
 import numpy as np
@@ -16,6 +17,7 @@ from logger import logger
 
 parser = argparse.ArgumentParser(description="training unet and classfier")
 
+parser.add_argument("--num_labels", type=int, default=2)
 parser.add_argument("--data_dir", type=str)
 parser.add_argument("--log_dir", type=str, default="output/train")
 parser.add_argument("--patch", action='store_true')
@@ -44,6 +46,9 @@ train_steps = args.train_steps
 log_interval = args.log_interval
 display_interval = args.display_interval
 save_interval = args.save_interval
+
+num_bit = int(math.log(args.num_labels, 2))
+assert 2**num_bit == args.num_labels
 
 device = torch.device("cuda:0")
 
@@ -112,7 +117,7 @@ net = UNetModel(
         attention_resolutions=(8, 16, 32),
         dropout=0.1,
         channel_mult=(1,1,2,2,4,4),
-        num_classes=None,
+        num_classes=-num_bit if args.num_labels>2 else None,
         use_checkpoint=False,
         use_fp16=False,
         num_heads=4,
@@ -152,7 +157,7 @@ if args.patch:
 
 print("create classifier")
 net_cls = torchvision.models.resnet34(pretrained=False)
-net_cls.fc = torch.nn.Linear(net_cls.fc.in_features,1)
+net_cls.fc = torch.nn.Linear(net_cls.fc.in_features,num_bit)
 torch.nn.init.kaiming_normal_(net_cls.fc.weight)
 print("classifier parameter number:")
 print(count_parameters(net_cls))
@@ -204,15 +209,26 @@ if args.resume is not None:
 print("start training")
 
 nstep=0 if args.resume is None else int(args.resume)
-label_one = torch.Tensor([1]).to(device)[:,None]
-label_zero = torch.Tensor([0]).to(device)[:,None]
+#label_one = torch.Tensor([1]).to(device)[:,None]
+label_zero = torch.Tensor([0]).to(device)[:,None].expand(-1, num_bit)
 while nstep<train_steps:
+    rand_label = random.randint(1, args.num_labels-1)
+    print(f"using label {rand_label}")
+    label_one = "{0:b}".format(rand_label).zfill(num_bit)
+    print(f"using label {label_one}")
+    label_one = [int(s) for s in label_one]
+    label_one = torch.Tensor(label_one)[None].to(device)
+
     sample, cond = next(data)
     sample = sample.to(device)
     noise = torch.randn_like(sample)*0.2
     bsize,c,h,w = sample.size()
     t = torch.Tensor([dumt]*bsize).to(device)
-    out = net(sample, t)
+    if args.num_labels > 2:
+        y_in = label_one.expand(bsize,-1)
+    else:
+        y_in = None
+    out = net(sample, t, y=y_in)
     out = torch.tanh(out)
     out0 = out
     sample0 = sample
