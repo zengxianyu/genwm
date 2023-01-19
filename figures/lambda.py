@@ -14,13 +14,13 @@ ag.add_argument('-s', '--save', type=str, default=None)
 ag = ag.parse_args()
 
 # data
-lambdas = np.array([0.005, 0.01, 0.05, 0.1, 1.0])
-psnrs = np.array([math.nan, math.nan, 51.4, math.nan, 37.5])
-psnrs = np.nan_to_num(psnrs, 0.0)
-fids = np.array([math.nan, math.nan, 0.52, math.nan, 9.33])
-fids = np.nan_to_num(fids, 0.0)
-accs = np.array([math.nan, math.nan, 100.0, math.nan, 100.0])
-accs = np.nan_to_num(accs, 0.0)
+lambdas = np.array([0.001, 0.005, 0.01, 0.05, 0.1, 1.0])
+psnrs = np.array([54.9, 52.7, 52.1, 51.4, 42.8, 37.5])
+#psnrs = np.nan_to_num(psnrs, 0.0)
+fids = np.array([0.39, 0.44, 0.46, 0.52, 3.16, 9.33])
+#fids = np.nan_to_num(fids, 0.0)
+accs = np.array([100.0, 100.0, 100.0, 100.0, 100.0, 100.0])
+#accs = np.nan_to_num(accs, 0.0)
 
 # plot
 fig = plt.figure(figsize=(14.4, 4.8))
