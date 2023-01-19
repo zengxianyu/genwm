@@ -1,3 +1,5 @@
+allfigs: fig-lambda fig-roc
+
 fig-lambda:
 	python3 lambda.py --save lambda.pdf
 
@@ -17,10 +19,15 @@ fig-roc:
 	python3 roc.py \
 		--ytrue data/ffhq_1bit_0.05_adm/output.ytrue.txt \
 		--yscore data/ffhq_1bit_0.05_adm/output.yscores.txt \
+		--seen_yscore data/ffhq_baseline_allseen_adm_320000/samples1k_pretrain.yscores.txt \
+		--seen_ytrue data/ffhq_baseline_allseen_adm_320000/samples1k_pretrain.ytrue.txt \
 		--title 'Stage 2: ADM' --color slateblue \
 		--save stage2-roc-adm.pdf
 	python3 roc.py \
 		--ytrue data/ffhq_1bit_0.05_ldm/img.ytrue.txt \
 		--yscore data/ffhq_1bit_0.05_ldm/img.yscores.txt \
+		--seen_ytrue data/ffhq_baseline_allseen_ldm_320000/samples1k_pretrain.ytrue.txt \
+		--seen_yscore data/ffhq_baseline_allseen_ldm_320000/samples1k_pretrain.yscores.txt \
 		--title 'Stage 2: LDM' --color slateblue \
 		--save stage2-roc-ldm.pdf
+	# stylegan2 curve still missing
