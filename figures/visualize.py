@@ -3,6 +3,8 @@ import matplotlib
 import matplotlib.pyplot as plt
 from PIL import Image
 import argparse
+import rich
+console = rich.get_console()
 
 # configs
 __FONTSIZE__ = 32
@@ -47,11 +49,21 @@ def w_showtriple(ax1, gt, ax2, w, ax3, *, ylabel=None, title=None):
     ax2.spines['bottom'].set_visible(False)
     ax2.spines['left'].set_visible(False)
     # 3
-    kappa = np.linalg.norm(np.array(imw) - np.array(im), axis=2)
+    x1 = np.array(imw).astype(float)
+    print(x1[0,0,:])
+    x2 = np.array(im).astype(float)
+    print(x2[0,0,:])
+    diff = np.array(imw).astype(float) - np.array(im).astype(float)
+    print(diff[0,0,:])
+    console.print('diff.stat', diff.shape, diff.min(), diff.max(), diff.mean())
+    kappa = np.linalg.norm(diff, ord=2, axis=2)
+    console.print(f'[red]kappa.stat {kappa.shape} {kappa.min()} {kappa.max()} {kappa.mean()}')
     kappa = kappa / kappa.max()
     kappa = (kappa * 255).astype(np.uint8)
     imk = Image.fromarray(kappa)
     ax3.imshow(imk, cmap=__CMAP__)
+    #plt.pcolormesh(np.flipud(kappa), cmap=__CMAP__)
+    #plt.colorbar()
     if ylabel is not None:
         ax3.set_ylabel(ylabel[2], fontsize=__FONTSIZE__)
     ax3.set_xticklabels([])
@@ -62,6 +74,7 @@ def w_showtriple(ax1, gt, ax2, w, ax3, *, ylabel=None, title=None):
     ax3.spines['right'].set_visible(False)
     ax3.spines['bottom'].set_visible(False)
     ax3.spines['left'].set_visible(False)
+    del im, imw
 
 
 def g_showtriple(ax1, px1, ax2, px2, ax3, px3,
