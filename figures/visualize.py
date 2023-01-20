@@ -78,18 +78,21 @@ def w_showtriple(ax1, gt, ax2, w, ax3, *, ylabel=None, title=None):
 
 
 def g_showtriple(ax1, px1, ax2, px2, ax3, px3,
-                 *, ylabel=None):
+                 *, title=None):
     im1 = Image.open(px1)
     ax1.imshow(im1)
-    ax1.set_ylabel(ylabel)
-    ax1.set_xticklabels([])
-    ax1.set_yticklabels([])
-    ax1.set_xticks([])
-    ax1.set_yticks([])
-    ax1.spines['top'].set_visible(False)
-    ax1.spines['right'].set_visible(False)
-    ax1.spines['bottom'].set_visible(False)
-    ax1.spines['left'].set_visible(False)
+    ax1.axis(False)
+    #ax1.set_ylabel(ylabel)
+    #ax1.set_xticklabels([])
+    #ax1.set_yticklabels([])
+    #ax1.set_xticks([])
+    #ax1.set_yticks([])
+    #ax1.spines['top'].set_visible(False)
+    #ax1.spines['right'].set_visible(False)
+    #ax1.spines['bottom'].set_visible(False)
+    #ax1.spines['left'].set_visible(False)
+    if title is not None:
+        ax1.set_title(title, fontsize=14)
 
     im2 = Image.open(px2)
     ax2.imshow(im2)
@@ -138,46 +141,47 @@ if ag.which == 'w':
 
 elif ag.which == 'g':
 
-    fig = plt.figure(figsize=(14.4,20))
+    fig = plt.figure(figsize=(14.4,7.2))
 
-    ax1 = plt.subplot(5,3,1)
-    ax2 = plt.subplot(5,3,2)
-    ax3 = plt.subplot(5,3,3)
+    ax1 = plt.subplot(3,5,1)
+    ax2 = plt.subplot(3,5,6)
+    ax3 = plt.subplot(3,5,11)
     g_showtriple(ax1, 'imgs/ffhq/sample_000020_ldm.png',
                  ax2, 'imgs/ffhq/sample_000109_ldm.png',
                  ax3, 'imgs/ffhq/sample_000109_ldm.png',
-                 ylabel='LDM')
+                 title='LDM')
 
-    ax4, ax5, ax6 = plt.subplot(5,3,4), plt.subplot(5,3,5), plt.subplot(5,3,6)
+    ax4 = plt.subplot(3,5,2)
+    ax5 = plt.subplot(3,5,7)
+    ax6 = plt.subplot(3,5,12)
     g_showtriple(ax4, 'imgs/ffhq/gdcat_1012_1_adm.png',
                  ax5, 'imgs/ffhq/gdcat_1025_1_adm.png',
                  ax6, 'imgs/ffhq/gdcat_1027_1_adm.png',
-                 ylabel='ADM')
+                 title='ADM')
 
-    ax7 = plt.subplot(5,3,7)
-    ax8 = plt.subplot(5,3,8)
-    ax9 = plt.subplot(5,3,9)
+    ax7 = plt.subplot(3,5,3)
+    ax8 = plt.subplot(3,5,8)
+    ax9 = plt.subplot(3,5,13)
     g_showtriple(ax7, 'imgs/ffhq/000057_stylegan2.png',
                  ax8, 'imgs/ffhq/000266_stylegan2.png',
                  ax9, 'imgs/ffhq/000932_stylegan2.png',
-                 ylabel='StyleGAN2')
+                 title='StyleGAN2')
 
-    ax10 = plt.subplot(5,3,10)
-    ax11 = plt.subplot(5,3,11)
-    ax12 = plt.subplot(5,3,12)
+    ax10 = plt.subplot(3,5,4)
+    ax11 = plt.subplot(3,5,9)
+    ax12 = plt.subplot(3,5,14)
     g_showtriple(ax10, 'imgs/imagenet/ILSVRC2012_val_00016962.JPEG_ldm.png',
                  ax11, 'imgs/imagenet/ILSVRC2012_val_00023850.JPEG_ldm.png',
                  ax12, 'imgs/imagenet/ILSVRC2012_val_00040606.JPEG_ldm.png',
-                 ylabel='LDM')
+                 title='LDM')
 
-    ax13 = plt.subplot(5,3,13)
-    ax14 = plt.subplot(5,3,14)
-    ax15 = plt.subplot(5,3,15)
+    ax13 = plt.subplot(3,5,5)
+    ax14 = plt.subplot(3,5,10)
+    ax15 = plt.subplot(3,5,15)
     g_showtriple(ax13, 'imgs/imagenet/ILSVRC2012_val_00000262.JPEG_adm.png',
                  ax14, 'imgs/imagenet/ILSVRC2012_val_00018250.JPEG_adm.png',
                  ax15, 'imgs/imagenet/ILSVRC2012_val_00041051.JPEG_adm.png',
-                 ylabel='ADM')
-
+                 title='ADM')
 
     plt.tight_layout()
 

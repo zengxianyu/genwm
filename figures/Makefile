@@ -7,7 +7,7 @@ fig-vis-w:
 	python3 visualize.py w --save vis-w.pdf
 
 fig-vis-g:
-	python3 visualize.py g --save vis-g.pdf
+	python3 visualize.py g --save vis-g.svg
 
 fig-roc:
 	# stage 1
