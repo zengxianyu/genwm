@@ -64,6 +64,27 @@ def w_showtriple(ax1, gt, ax2, w, ax3, *, ylabel=None, title=None):
     ax3.spines['left'].set_visible(False)
 
 
+def g_showtriple(ax1, px1, ax2, px2, ax3, px3,
+                 *, ylabel=None):
+    im1 = Image.open(px1)
+    ax1.imshow(im1)
+    ax1.set_ylabel(ylabel)
+    ax1.set_xticklabels([])
+    ax1.set_yticklabels([])
+    ax1.set_xticks([])
+    ax1.set_yticks([])
+    ax1.spines['top'].set_visible(False)
+    ax1.spines['right'].set_visible(False)
+    ax1.spines['bottom'].set_visible(False)
+    ax1.spines['left'].set_visible(False)
+
+    im2 = Image.open(px2)
+    ax2.imshow(im2)
+    ax2.axis(False)
+    im3 = Image.open(px3)
+    ax3.imshow(im3)
+    ax3.axis(False)
+
 # draw
 if ag.which == 'w':
     # stage 1
@@ -104,25 +125,51 @@ if ag.which == 'w':
 
 elif ag.which == 'g':
 
-    raise NotImplementedError
+    fig = plt.figure(figsize=(14.4,20))
+
+    ax1 = plt.subplot(5,3,1)
+    ax2 = plt.subplot(5,3,2)
+    ax3 = plt.subplot(5,3,3)
+    g_showtriple(ax1, 'imgs/ffhq/sample_000020_ldm.png',
+                 ax2, 'imgs/ffhq/sample_000109_ldm.png',
+                 ax3, 'imgs/ffhq/sample_000109_ldm.png',
+                 ylabel='LDM')
+
+    ax4, ax5, ax6 = plt.subplot(5,3,4), plt.subplot(5,3,5), plt.subplot(5,3,6)
+    g_showtriple(ax4, 'imgs/ffhq/gdcat_1012_1_adm.png',
+                 ax5, 'imgs/ffhq/gdcat_1025_1_adm.png',
+                 ax6, 'imgs/ffhq/gdcat_1027_1_adm.png',
+                 ylabel='ADM')
+
+    ax7 = plt.subplot(5,3,7)
+    ax8 = plt.subplot(5,3,8)
+    ax9 = plt.subplot(5,3,9)
+    g_showtriple(ax7, 'imgs/ffhq/000057_stylegan2.png',
+                 ax8, 'imgs/ffhq/000266_stylegan2.png',
+                 ax9, 'imgs/ffhq/000932_stylegan2.png',
+                 ylabel='StyleGAN2')
+
+    ax10 = plt.subplot(5,3,10)
+    ax11 = plt.subplot(5,3,11)
+    ax12 = plt.subplot(5,3,12)
+    g_showtriple(ax10, 'imgs/imagenet/ILSVRC2012_val_00016962.JPEG_ldm.png',
+                 ax11, 'imgs/imagenet/ILSVRC2012_val_00023850.JPEG_ldm.png',
+                 ax12, 'imgs/imagenet/ILSVRC2012_val_00040606.JPEG_ldm.png',
+                 ylabel='LDM')
+
+    ax13 = plt.subplot(5,3,13)
+    ax14 = plt.subplot(5,3,14)
+    ax15 = plt.subplot(5,3,15)
+    g_showtriple(ax13, 'imgs/imagenet/ILSVRC2012_val_00000262.JPEG_adm.png',
+                 ax14, 'imgs/imagenet/ILSVRC2012_val_00018250.JPEG_adm.png',
+                 ax15, 'imgs/imagenet/ILSVRC2012_val_00041051.JPEG_adm.png',
+                 ylabel='ADM')
+
+
+    plt.tight_layout()
 
 if ag.save is None:
     plt.show()
 else:
     plt.savefig(ag.save)
-
-#figures/imgs/ffhq/000057_stylegan2.png
-#figures/imgs/ffhq/000266_stylegan2.png
-#figures/imgs/ffhq/000932_stylegan2.png
-#figures/imgs/ffhq/gdcat_1012_1_adm.png
-#figures/imgs/ffhq/gdcat_1025_1_adm.png
-#figures/imgs/ffhq/gdcat_1027_1_adm.png
-#figures/imgs/ffhq/sample_000020_ldm.png
-#figures/imgs/ffhq/sample_000109_ldm.png
-#figures/imgs/imagenet/ILSVRC2012_val_00000262.JPEG_adm.png
-#figures/imgs/imagenet/ILSVRC2012_val_00016962.JPEG_ldm.png
-#figures/imgs/imagenet/ILSVRC2012_val_00018250.JPEG_adm.png
-#figures/imgs/imagenet/ILSVRC2012_val_00023850.JPEG_ldm.png
-#figures/imgs/imagenet/ILSVRC2012_val_00040606.JPEG_ldm.png
-#figures/imgs/imagenet/ILSVRC2012_val_00041051.JPEG_adm.png
 
