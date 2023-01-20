@@ -92,7 +92,7 @@ def g_showtriple(ax1, px1, ax2, px2, ax3, px3,
     #ax1.spines['bottom'].set_visible(False)
     #ax1.spines['left'].set_visible(False)
     if title is not None:
-        ax1.set_title(title, fontsize=14)
+        ax1.set_title(title, fontsize=18)
 
     im2 = Image.open(px2)
     ax2.imshow(im2)
@@ -148,7 +148,7 @@ elif ag.which == 'g':
     ax3 = plt.subplot(3,5,11)
     g_showtriple(ax1, 'imgs/ffhq/sample_000020_ldm.png',
                  ax2, 'imgs/ffhq/sample_000109_ldm.png',
-                 ax3, 'imgs/ffhq/sample_000109_ldm.png',
+                 ax3, 'imgs/ffhq/sample_000014_ldm.png',
                  title='LDM')
 
     ax4 = plt.subplot(3,5,2)
