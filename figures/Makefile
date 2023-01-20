@@ -1,7 +1,11 @@
-allfigs: fig-lambda fig-roc
+allfigs: fig-lambda fig-roc fig-vis-w
 
 fig-lambda:
 	python3 lambda.py --save lambda.pdf
+
+fig-vis-w:
+	python3 visualize.py w --save vis-w.svg
+	# manually edit and export as pdf
 
 fig-roc:
 	# stage 1
@@ -31,3 +35,5 @@ fig-roc:
 		--title 'Stage 2: LDM' --color slateblue \
 		--save stage2-roc-ldm.pdf
 	# stylegan2 curve still missing
+
+
