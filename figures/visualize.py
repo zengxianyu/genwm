@@ -5,7 +5,7 @@ from PIL import Image
 import argparse
 
 # configs
-font = {'family': 'monospace', 'weight': 'normal', 'size': 18}
+font = {'family': 'monospace', 'weight': 'normal', 'size': 22}
 matplotlib.rc('font', **font)
 
 # arguments
@@ -87,6 +87,8 @@ if ag.which == 'w':
                  ax11, 'imgs/imagenet/ILSVRC2012_val_00027351_W.JPEG',
                  ax12,
                  ylabel='ImageNet')
+
+    plt.tight_layout()
 
 elif ag.which == 'g':
 

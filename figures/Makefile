@@ -4,8 +4,7 @@ fig-lambda:
 	python3 lambda.py --save lambda.pdf
 
 fig-vis-w:
-	python3 visualize.py w --save vis-w.svg
-	# manually edit and export as pdf
+	python3 visualize.py w --save vis-w.pdf
 
 fig-roc:
 	# stage 1
