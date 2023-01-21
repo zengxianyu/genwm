@@ -24,6 +24,7 @@ parser.add_argument("--use_noise", action='store_true')
 parser.add_argument("--noise_scale", type=float, default=0.2)
 parser.add_argument("--patch", action='store_true')
 parser.add_argument("--fix_patch", action='store_true')
+parser.add_argument("--fix_cls", action='store_true')
 parser.add_argument("--quant", action='store_true')
 parser.add_argument("--resume", type=str, required=False)
 parser.add_argument("--w_cls0", type=float, default=0.1)
@@ -183,12 +184,17 @@ if args.resume is not None:
 net.to(device)
 net.train()
 net_cls.to(device)
-net_cls.train()
+if not args.fix_cls:
+    net_cls.train()
+else:
+    net_cls.eval()
 if net_p is not None:
     net_p.to(device)
     net_p.train()
 
-list_param = list(net.parameters())+list(net_cls.parameters())
+list_param = list(net.parameters())
+if not args.fix_cls:
+    list_param += list(net_cls.parameters())
 optim = torch.optim.Adam(
         list_param, 
         lr=1e-4)
@@ -312,13 +318,14 @@ while nstep<train_steps:
         writer.write_html()
         print(f"step {nstep} saved images")
     if nstep % save_interval == 0:
-        net_cls.cpu()
         net.cpu()
         torch.save(net.state_dict(), f"{args.log_dir}/net_{nstep}.pth")
-        torch.save(net_cls.state_dict(), f"{args.log_dir}/net_cls_{nstep}.pth")
         torch.save(optim.state_dict(), f"{args.log_dir}/optim_{nstep}.pth")
         net.to(device)
-        net_cls.to(device)
+        if not args.fix_cls:
+            net_cls.cpu()
+            torch.save(net_cls.state_dict(), f"{args.log_dir}/net_cls_{nstep}.pth")
+            net_cls.to(device)
         if net_p is not None:
             net_p.cpu()
             torch.save(net_p.state_dict(), f"{args.log_dir}/net_p_{nstep}.pth")
