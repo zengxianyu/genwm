@@ -21,6 +21,7 @@ parser.add_argument("--num_labels", type=int, default=2)
 parser.add_argument("--data_dir", type=str)
 parser.add_argument("--log_dir", type=str, default="output/train")
 parser.add_argument("--use_noise", action='store_true')
+parser.add_argument("--noise_scale", type=float, default=0.2)
 parser.add_argument("--patch", action='store_true')
 parser.add_argument("--fix_patch", action='store_true')
 parser.add_argument("--quant", action='store_true')
@@ -222,7 +223,7 @@ while nstep<train_steps:
 
     sample, cond = next(data)
     sample = sample.to(device)
-    noise = torch.randn_like(sample)*0.2
+    noise = torch.randn_like(sample)*args.noise_scale
     bsize,c,h,w = sample.size()
     t = torch.Tensor([dumt]*bsize).to(device)
     if args.num_labels > 2:
