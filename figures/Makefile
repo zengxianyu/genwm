@@ -1,7 +1,14 @@
-allfigs: fig-lambda fig-roc
+allfigs: fig-lambda fig-roc fig-vis-w
+# gs -sDEVICE=pdfwrite -dPDFSETTINGS=/printer -q -o in out
 
 fig-lambda:
 	python3 lambda.py --save lambda.pdf
+
+fig-vis-w:
+	python3 visualize.py w --save vis-w.pdf
+
+fig-vis-g:
+	python3 visualize.py g --save vis-g.svg
 
 fig-roc:
 	# stage 1
@@ -31,3 +38,5 @@ fig-roc:
 		--title 'Stage 2: LDM' --color slateblue \
 		--save stage2-roc-ldm.pdf
 	# stylegan2 curve still missing
+
+

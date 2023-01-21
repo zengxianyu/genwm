@@ -20,6 +20,7 @@ parser = argparse.ArgumentParser(description="training unet and classfier")
 parser.add_argument("--num_labels", type=int, default=2)
 parser.add_argument("--data_dir", type=str)
 parser.add_argument("--log_dir", type=str, default="output/train")
+parser.add_argument("--use_noise", action='store_true')
 parser.add_argument("--patch", action='store_true')
 parser.add_argument("--fix_patch", action='store_true')
 parser.add_argument("--fix_cls", action='store_true')
@@ -234,7 +235,10 @@ while nstep<train_steps:
         y_in = label_one.expand(bsize,-1)
     else:
         y_in = None
-    out = net(sample, t, y=y_in)
+    if args.use_noise:
+        out = net(sample+noise, t, y=y_in)
+    else:
+        out = net(sample, t, y=y_in)
     out = torch.tanh(out)
     out0 = out
     sample0 = sample
