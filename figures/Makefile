@@ -41,10 +41,11 @@ fig-roc:
         --unseen_ytrue data/ffhq_unseen_ldm_320000/samples1k_pretrain.ytrue.txt \
 		--title 'Stage 2: LDM' --color slateblue \
 		--save stage2-roc-ldm.pdf
-# seen missing for stylegan 2
 	python3 roc.py \
 		--yscore data/ffhq_1bit_0.05_stylegan/576000.pt.yscores.txt \
 		--ytrue data/ffhq_1bit_0.05_stylegan/576000.pt.ytrue.txt \
+		--seen_ytrue data/ffhq_baseline_allseen_stylegan_320000/samples1k_pretrain.ytrue.txt \
+		--seen_yscore data/ffhq_baseline_allseen_stylegan_320000/samples1k_pretrain.yscores.txt \
         --unseen_yscore data/ffhq_unseen_stylegan_320000/samples1k_pretrain.yscores.txt \
         --unseen_ytrue data/ffhq_unseen_stylegan_320000/samples1k_pretrain.ytrue.txt \
 		--title 'Stage 2: StyleGAN2' --color slateblue \
