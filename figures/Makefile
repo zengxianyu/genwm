@@ -5,7 +5,7 @@ fig-lambda:
 	python3 lambda.py --save lambda.pdf
 
 fig-vis-w:
-	python3 visualize.py w --save vis-w.pdf
+	python3 visualize.py w --save vis-w.svg
 
 fig-vis-g:
 	python3 visualize.py g --save vis-g.svg
