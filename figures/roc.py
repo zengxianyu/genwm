@@ -39,7 +39,7 @@ console.print('TPR', tpr)
 
 # plot
 fig = plt.figure(figsize=(5.4, 4.8))
-plt.plot(fpr, tpr, marker='p', color=ag.color)
+plt.plot(fpr, tpr, marker='p', color=ag.color, linewidth=3)
 plt.plot([0,1], [0,1], 'k:', label='_nolegend_')
 plt.xlabel('False Positive Rate')
 plt.ylabel('True Positive Rate')
@@ -60,9 +60,7 @@ if ag.unseen_ytrue and ag.unseen_yscore:
     fpr, tpr, _ = roc_curve(unseen_ytrue, unseen_yscore, pos_label=1)
     plt.plot(fpr, tpr, marker='.')
 
-if len(legends) > 1:
-	plt.legend(legends)
-
+plt.legend(legends)
 plt.tight_layout()
 
 # dump
