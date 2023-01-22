@@ -126,15 +126,19 @@ if ag.which == 'w':
     ax7 = plt.subplot(3,4,3)
     ax8 = plt.subplot(3,4,7)
     ax9 = plt.subplot(3,4,11)
-    w_showtriple(ax7, 'imgs/imagenet/ILSVRC2012_val_00025488_GT.JPEG',
-                 ax8, 'imgs/imagenet/ILSVRC2012_val_00025488_W.JPEG',
+    #w_showtriple(ax7, 'imgs/imagenet/ILSVRC2012_val_00025488_GT.JPEG',
+    #             ax8, 'imgs/imagenet/ILSVRC2012_val_00025488_W.JPEG',
+    w_showtriple(ax7, 'imgs/imagenet/ILSVRC2012_val_00030658_GT.png',
+                 ax8, 'imgs/imagenet/ILSVRC2012_val_00030658_W.png',
                  ax9,
                  title='ImageNet')
     ax10 = plt.subplot(3,4,4)
     ax11 = plt.subplot(3,4,8)
     ax12 = plt.subplot(3,4,12)
-    w_showtriple(ax10, 'imgs/imagenet/ILSVRC2012_val_00027351_GT.JPEG',
-                 ax11, 'imgs/imagenet/ILSVRC2012_val_00027351_W.JPEG',
+    #w_showtriple(ax10, 'imgs/imagenet/ILSVRC2012_val_00027351_GT.JPEG',
+    #             ax11, 'imgs/imagenet/ILSVRC2012_val_00027351_W.JPEG',
+    w_showtriple(ax10, 'imgs/imagenet/ILSVRC2012_val_00048732_GT.png',
+                 ax11, 'imgs/imagenet/ILSVRC2012_val_00048732_W.png',
                  ax12,
                  title='ImageNet')
     plt.tight_layout()

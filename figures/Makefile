@@ -5,7 +5,7 @@ fig-lambda:
 	python3 lambda.py --save lambda.pdf
 
 fig-vis-w:
-	python3 visualize.py w --save vis-w.pdf
+	python3 visualize.py w --save vis-w.svg
 
 fig-vis-g:
 	python3 visualize.py g --save vis-g.svg
@@ -28,6 +28,8 @@ fig-roc:
 		--yscore data/ffhq_1bit_0.05_adm/output.yscores.txt \
 		--seen_yscore data/ffhq_baseline_allseen_adm_320000/samples1k_pretrain.yscores.txt \
 		--seen_ytrue data/ffhq_baseline_allseen_adm_320000/samples1k_pretrain.ytrue.txt \
+        --unseen_yscore data/ffhq_unseen_adm_320000/samples1k_pretrain.yscores.txt \
+        --unseen_ytrue data/ffhq_unseen_adm_320000/samples1k_pretrain.ytrue.txt \
 		--title 'Stage 2: ADM' --color slateblue \
 		--save stage2-roc-adm.pdf
 	python3 roc.py \
@@ -35,8 +37,16 @@ fig-roc:
 		--yscore data/ffhq_1bit_0.05_ldm/img.yscores.txt \
 		--seen_ytrue data/ffhq_baseline_allseen_ldm_320000/samples1k_pretrain.ytrue.txt \
 		--seen_yscore data/ffhq_baseline_allseen_ldm_320000/samples1k_pretrain.yscores.txt \
+        --unseen_yscore data/ffhq_unseen_ldm_320000/samples1k_pretrain.yscores.txt \
+        --unseen_ytrue data/ffhq_unseen_ldm_320000/samples1k_pretrain.ytrue.txt \
 		--title 'Stage 2: LDM' --color slateblue \
 		--save stage2-roc-ldm.pdf
-	# stylegan2 curve still missing
-
-
+	python3 roc.py \
+		--yscore data/ffhq_1bit_0.05_stylegan/576000.pt.yscores.txt \
+		--ytrue data/ffhq_1bit_0.05_stylegan/576000.pt.ytrue.txt \
+		--seen_ytrue data/ffhq_baseline_allseen_stylegan_320000/samples1k_pretrain.ytrue.txt \
+		--seen_yscore data/ffhq_baseline_allseen_stylegan_320000/samples1k_pretrain.yscores.txt \
+        --unseen_yscore data/ffhq_unseen_stylegan_320000/samples1k_pretrain.yscores.txt \
+        --unseen_ytrue data/ffhq_unseen_stylegan_320000/samples1k_pretrain.ytrue.txt \
+		--title 'Stage 2: StyleGAN2' --color slateblue \
+        --save stage2-roc-stylegan2.pdf

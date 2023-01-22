@@ -7,8 +7,8 @@ matplotlib.rc('font', **font)
 
 vmax = [15.588457268119896,
     33.075670817082454,
-    49.90991885387112,
-    36.373066958946424]
+    31.192947920964443,
+    57.97413216254298]
 for v in vmax:
     x = np.random.rand(10,10) * v
     plt.pcolormesh(x, cmap='RdPu')

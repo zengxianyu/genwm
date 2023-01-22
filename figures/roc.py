@@ -21,6 +21,8 @@ ag.add_argument('--title', type=str, default='')
 ag.add_argument('--save', type=str, default=None)
 ag.add_argument('--seen_ytrue', type=str, default=None, help='optional')
 ag.add_argument('--seen_yscore', type=str, default=None, help='optional')
+ag.add_argument('--unseen_ytrue', type=str, default=None, help='optional')
+ag.add_argument('--unseen_yscore', type=str, default=None, help='optional')
 ag = ag.parse_args()
 console.print(ag)
 
@@ -50,6 +52,13 @@ if ag.seen_ytrue and ag.seen_yscore:
 	seen_yscore = np.loadtxt(ag.seen_yscore)
 	fpr, tpr, _ = roc_curve(seen_ytrue, seen_yscore, pos_label=1)
 	plt.plot(fpr, tpr, marker='+')
+
+if ag.unseen_ytrue and ag.unseen_yscore:
+    legends.append('unseen')
+    unseen_ytrue = np.loadtxt(ag.unseen_ytrue)
+    unseen_yscore = np.loadtxt(ag.unseen_yscore)
+    fpr, tpr, _ = roc_curve(unseen_ytrue, unseen_yscore, pos_label=1)
+    plt.plot(fpr, tpr, marker='.')
 
 if len(legends) > 1:
 	plt.legend(legends)
