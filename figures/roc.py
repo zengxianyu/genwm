@@ -32,26 +32,16 @@ print('y_true.shape', y_true.shape)
 y_score = np.loadtxt(ag.yscore)
 print('y_score.shape', y_score.shape)
 
-# calculate
-fpr, tpr, thresholds = roc_curve(y_true, y_score, pos_label=1)
-console.print('FPR', fpr)
-console.print('TPR', tpr)
-
 # plot
 fig = plt.figure(figsize=(5.4, 4.8))
-plt.plot(fpr, tpr, marker='p', color=ag.color, linewidth=3)
-plt.plot([0,1], [0,1], 'k:', label='_nolegend_')
-plt.xlabel('False Positive Rate')
-plt.ylabel('True Positive Rate')
-plt.title(ag.title)
+legends = []
 
-legends = ['ours']
 if ag.seen_ytrue and ag.seen_yscore:
 	legends.append('seen')
 	seen_ytrue = np.loadtxt(ag.seen_ytrue)
 	seen_yscore = np.loadtxt(ag.seen_yscore)
 	fpr, tpr, _ = roc_curve(seen_ytrue, seen_yscore, pos_label=1)
-	plt.plot(fpr, tpr, marker='+')
+	plt.plot(fpr, tpr, marker='x')
 
 if ag.unseen_ytrue and ag.unseen_yscore:
     legends.append('unseen')
@@ -59,6 +49,17 @@ if ag.unseen_ytrue and ag.unseen_yscore:
     unseen_yscore = np.loadtxt(ag.unseen_yscore)
     fpr, tpr, _ = roc_curve(unseen_ytrue, unseen_yscore, pos_label=1)
     plt.plot(fpr, tpr, marker='.')
+
+if ag.ytrue and ag.yscore:
+    fpr, tpr, thresholds = roc_curve(y_true, y_score, pos_label=1)
+    console.print('FPR', fpr)
+    console.print('TPR', tpr)
+    plt.plot(fpr, tpr, marker='p', color=ag.color, linewidth=3)
+    plt.plot([0,1], [0,1], 'k:', label='_nolegend_')
+    plt.xlabel('False Positive Rate')
+    plt.ylabel('True Positive Rate')
+    plt.title(ag.title)
+    legends.append('ours')
 
 plt.legend(legends)
 plt.tight_layout()
