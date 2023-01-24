@@ -14,6 +14,8 @@ from guided_diffusion.image_datasets import load_data
 from logger import logger
 
 parser = argparse.ArgumentParser(description="training unet and classfier")
+parser.add_argument("--use_noise", action='store_true')
+parser.add_argument("--noise_scale", type=float, default=0.2)
 parser.add_argument("--num_labels", type=int, default=2)
 parser.add_argument("--return_prefix", action='store_true')
 parser.add_argument("--data_dir", type=str)
@@ -81,6 +83,7 @@ for rand_label in range(1, args.num_labels):
     while bdata is not None:
         sample, cond = bdata
         sample = sample.to(device)
+        noise = torch.randn_like(sample)*args.noise_scale
         bsize,c,h,w = sample.size()
 
         print(f"using label {rand_label}")
@@ -100,7 +103,11 @@ for rand_label in range(1, args.num_labels):
 
         t = torch.Tensor([dumt]*bsize).to(device)
         with torch.no_grad():
-            recon = net(sample, t, y=y_in)
+            #recon = net(sample, t, y=y_in)
+            if args.use_noise:
+                recon = net(sample+noise, t, y=y_in)
+            else:
+                recon = net(sample, t, y=y_in)
         #recon = torch.clamp(recon,-1,1).detach().cpu().numpy()/2+0.5
         recon = torch.tanh(recon).detach().cpu().numpy()/2+0.5
         recon = (recon*255).astype(np.uint8).transpose((0,2,3,1))
