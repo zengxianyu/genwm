@@ -1,6 +1,9 @@
 allfigs: fig-lambda fig-roc fig-vis-w
 # gs -sDEVICE=pdfwrite -dPDFSETTINGS=/printer -q -o in out
 
+fig-fwm-roc:
+	python3 fwm-roc.py --save fwm-roc.pdf
+
 fig-lambda:
 	python3 lambda.py --save lambda.pdf
 
