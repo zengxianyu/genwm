@@ -10,3 +10,9 @@
 [submodule "logger"]
 	path = logger
 	url = https://github.com/zengxianyu/logger
+[submodule "GANimageDetection"]
+	path = GANimageDetection
+	url = https://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@github.com/zengxianyu/GANimageDetection
+[submodule "CNNDetection"]
+	path = CNNDetection
+	url = https://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@github.com/zengxianyu/CNNDetection
