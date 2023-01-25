@@ -33,6 +33,10 @@ fig-roc:
 		--seen_ytrue data/ffhq_baseline_allseen_adm_320000/samples1k_pretrain.ytrue.txt \
         --unseen_yscore data/ffhq_unseen_adm_320000/samples1k_pretrain.yscores.txt \
         --unseen_ytrue data/ffhq_unseen_adm_320000/samples1k_pretrain.ytrue.txt \
+        --wang_yscore data/ffhq_cnndetection/ldm_result.yscores.txt \
+        --wang_ytrue data/ffhq_cnndetection/ldm_result.ytrue.txt \
+        --grag_yscore data/ffhq_ganimagedetection/ldm.yscores.txt \
+        --grag_ytrue data/ffhq_ganimagedetection/ldm.ytrue.txt \
 		--title 'Stage 2: ADM' --color slateblue \
 		--save stage2-roc-adm.pdf
 	python3 roc.py \
@@ -42,6 +46,10 @@ fig-roc:
 		--seen_yscore data/ffhq_baseline_allseen_ldm_320000/samples1k_pretrain.yscores.txt \
         --unseen_yscore data/ffhq_unseen_ldm_320000/samples1k_pretrain.yscores.txt \
         --unseen_ytrue data/ffhq_unseen_ldm_320000/samples1k_pretrain.ytrue.txt \
+        --wang_yscore data/ffhq_cnndetection/adm_result.yscores.txt \
+        --wang_ytrue data/ffhq_cnndetection/adm_result.ytrue.txt \
+        --grag_yscore data/ffhq_ganimagedetection/adm.yscores.txt \
+        --grag_ytrue data/ffhq_ganimagedetection/adm.ytrue.txt \
 		--title 'Stage 2: LDM' --color slateblue \
 		--save stage2-roc-ldm.pdf
 	python3 roc.py \
@@ -51,5 +59,9 @@ fig-roc:
 		--seen_yscore data/ffhq_baseline_allseen_stylegan_320000/samples1k_pretrain.yscores.txt \
         --unseen_yscore data/ffhq_unseen_stylegan_320000/samples1k_pretrain.yscores.txt \
         --unseen_ytrue data/ffhq_unseen_stylegan_320000/samples1k_pretrain.ytrue.txt \
+        --grag_yscore data/ffhq_ganimagedetection/stylegan2.yscores.txt \
+        --grag_ytrue data/ffhq_ganimagedetection/stylegan2.ytrue.txt \
+        --wang_yscore data/ffhq_cnndetection/stylegan2.yscores.txt \
+        --wang_ytrue data/ffhq_cnndetection/stylegan2.ytrue.txt \
 		--title 'Stage 2: StyleGAN2' --color slateblue \
         --save stage2-roc-stylegan2.pdf
