@@ -23,10 +23,10 @@
      inkscape:pagecheckerboard="0"
      inkscape:deskcolor="#d1d1d1"
      inkscape:document-units="mm"
-     showgrid="true"
+     showgrid="false"
      inkscape:zoom="1"
-     inkscape:cx="499"
-     inkscape:cy="170"
+     inkscape:cx="530"
+     inkscape:cy="199"
      inkscape:window-width="1920"
      inkscape:window-height="1021"
      inkscape:window-x="0"
@@ -37,21 +37,6 @@
     <inkscape:grid
        type="xygrid"
        id="grid1073" />
-    <sodipodi:guide
-       position="128.71701,191.47822"
-       orientation="0,-1"
-       id="guide17587"
-       inkscape:locked="false" />
-    <sodipodi:guide
-       position="164.04167,183.54166"
-       orientation="0,-1"
-       id="guide21321"
-       inkscape:locked="false" />
-    <sodipodi:guide
-       position="193.14584,202.0625"
-       orientation="0,-1"
-       id="guide21323"
-       inkscape:locked="false" />
   </sodipodi:namedview>
   <defs
      id="defs875">
@@ -1882,5 +1867,37 @@
          x="183.62082"
          y="48.304359"
          id="tspan3927-3">in an adversarial manner per image.</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:5.64444444px;line-height:1.05;font-family:FreeSerif;-inkscape-font-specification:'FreeSerif, Normal';font-variant-ligatures:none;letter-spacing:0px;word-spacing:0px;stroke-width:0.264583;font-weight:normal;font-style:normal;font-stretch:normal;font-variant:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal"
+       x="62.250477"
+       y="95.352219"
+       id="text27249"><tspan
+         sodipodi:role="line"
+         id="tspan27247"
+         style="text-align:center;text-anchor:middle;stroke-width:0.264583;-inkscape-font-specification:'FreeSerif, Normal';font-family:FreeSerif;font-weight:normal;font-style:normal;font-stretch:normal;font-variant:normal;font-size:5.64444444px;font-variant-ligatures:none;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal"
+         x="62.250477"
+         y="95.352219">(c) The universal signature can be injected</tspan><tspan
+         sodipodi:role="line"
+         style="text-align:center;text-anchor:middle;stroke-width:0.264583;-inkscape-font-specification:'FreeSerif, Normal';font-family:FreeSerif;font-weight:normal;font-style:normal;font-stretch:normal;font-variant:normal;font-size:5.64444444px;font-variant-ligatures:none;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal"
+         x="62.250477"
+         y="102.01972"
+         id="tspan27251">into an arbitrary given image generator.</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:5.64444px;line-height:1.05;font-family:FreeSerif;-inkscape-font-specification:'FreeSerif, Normal';font-variant-ligatures:none;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0px;word-spacing:0px;stroke-width:0.264583"
+       x="192.81369"
+       y="95.352219"
+       id="text27545"><tspan
+         sodipodi:role="line"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:5.64444px;font-family:FreeSerif;-inkscape-font-specification:'FreeSerif, Normal';font-variant-ligatures:none;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;text-align:center;text-anchor:middle;stroke-width:0.264583"
+         x="192.81369"
+         y="95.352219"
+         id="tspan27551">(d) The detector can be shared among all</tspan><tspan
+         sodipodi:role="line"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:5.64444px;font-family:FreeSerif;-inkscape-font-specification:'FreeSerif, Normal';font-variant-ligatures:none;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;text-align:center;text-anchor:middle;stroke-width:0.264583"
+         x="192.81369"
+         y="101.27888"
+         id="tspan27848">generators with signature injected.</tspan></text>
   </g>
 </svg>
