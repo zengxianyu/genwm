@@ -29,13 +29,13 @@
      inkscape:deskcolor="#d1d1d1"
      inkscape:document-units="pt"
      showgrid="false"
-     inkscape:zoom="0.68287035"
-     inkscape:cx="1137.8441"
-     inkscape:cy="393.19323"
-     inkscape:window-width="1920"
-     inkscape:window-height="1050"
-     inkscape:window-x="1920"
-     inkscape:window-y="0"
+     inkscape:zoom="0.88202111"
+     inkscape:cx="2117.8632"
+     inkscape:cy="369.60567"
+     inkscape:window-width="2560"
+     inkscape:window-height="1371"
+     inkscape:window-x="0"
+     inkscape:window-y="39"
      inkscape:window-maximized="1"
      inkscape:current-layer="svg339" />
   <metadata
@@ -175,6 +175,40 @@
        id="DejaVuSans-Oblique-3ba-0"
        d="m 938,3500 h 593 L 1247,2047 3041,3500 h 700 L 2106,2181 3275,0 H 2572 L 1628,1806 1122,1403 850,0 H 256 Z"
        transform="scale(0.015625)" />
+    <defs
+       id="defs93">
+      <path
+         id="DejaVuSansMono-57"
+         d="m 0,4666 h 616 l 447,-3788 531,2506 h 659 l 538,-2512 447,3794 h 615 L 3156,0 H 2559 L 1925,2772 1294,0 H 697 Z"
+         transform="scale(0.015625)" />
+      <path
+         id="DejaVuSansMono-61"
+         d="m 2194,1759 h -191 q -503,0 -758,-177 -254,-176 -254,-526 0,-315 190,-490 191,-175 528,-175 475,0 747,329 272,330 275,911 v 128 z m 1115,238 V 0 H 2731 V 519 Q 2547,206 2267,57 1988,-91 1588,-91 q -535,0 -854,302 -318,302 -318,808 0,584 392,887 392,303 1151,303 h 772 v 91 q -3,419 -213,608 -209,189 -668,189 -294,0 -594,-85 -300,-84 -584,-246 v 575 q 319,122 611,182 292,61 567,61 434,0 742,-128 308,-128 499,-384 118,-156 168,-386 50,-230 50,-689 z"
+         transform="scale(0.015625)" />
+      <path
+         id="DejaVuSansMono-65"
+         d="M 3475,1894 V 1613 H 984 v -19 q 0,-572 298,-885 299,-312 843,-312 275,0 575,87 300,88 641,266 V 178 Q 3013,44 2708,-23 2403,-91 2119,-91 1303,-91 843,398 384,888 384,1747 q 0,837 450,1337 450,500 1200,500 669,0 1055,-453 386,-453 386,-1237 z m -575,169 q -12,506 -239,770 -227,264 -652,264 -415,0 -684,-275 -269,-275 -319,-763 z"
+         transform="scale(0.015625)" />
+      <path
+         id="DejaVuSansMono-6d"
+         d="m 2113,3144 q 106,225 270,332 164,108 395,108 422,0 595,-327 174,-326 174,-1229 V 0 h -525 v 2003 q 0,741 -83,920 -83,180 -301,180 -250,0 -343,-192 -92,-192 -92,-908 V 0 h -525 v 2003 q 0,750 -89,925 -89,175 -320,175 -228,0 -317,-192 -89,-192 -89,-908 V 0 H 341 v 3500 h 522 v -300 q 103,188 257,286 155,98 352,98 237,0 395,-109 158,-109 246,-331 z"
+         transform="scale(0.015625)" />
+      <path
+         id="DejaVuSansMono-6b"
+         d="m 738,4863 h 593 V 2047 l 1510,1453 h 700 L 2163,2181 3756,0 H 3053 L 1759,1806 1331,1403 V 0 H 738 Z"
+         transform="scale(0.015625)" />
+      <path
+         id="DejaVuSans-302"
+         d="m -1831,5119 h 462 l 766,-1175 h -435 l -562,765 -563,-765 h -434 z m 231,-1535 z"
+         transform="scale(0.015625)" />
+    </defs>
+    <defs
+       id="defs136">
+      <path
+         id="DejaVuSans-Oblique-3ba"
+         d="m 938,3500 h 593 L 1247,2047 3041,3500 h 700 L 2106,2181 3275,0 H 2572 L 1628,1806 1122,1403 850,0 H 256 Z"
+         transform="scale(0.015625)" />
+    </defs>
   </defs>
   <g
      clip-path="url(#p0eec9a3d94)"
@@ -360,166 +394,28 @@
   </g>
   <g
      id="matplotlib.axis_3" />
-  <g
-     id="matplotlib.axis_4"
-     transform="rotate(90,539.41452,505.42476)">
-    <g
-       id="text_3">
-      <!-- Watermarked $\hat{x}$ -->
-      <g
-         transform="matrix(0,-0.32,-0.32,0,68.349751,659)"
-         id="g123">
-        <defs
-           id="defs93">
-          <path
-             id="DejaVuSansMono-57"
-             d="m 0,4666 h 616 l 447,-3788 531,2506 h 659 l 538,-2512 447,3794 h 615 L 3156,0 H 2559 L 1925,2772 1294,0 H 697 Z"
-             transform="scale(0.015625)" />
-          <path
-             id="DejaVuSansMono-61"
-             d="m 2194,1759 h -191 q -503,0 -758,-177 -254,-176 -254,-526 0,-315 190,-490 191,-175 528,-175 475,0 747,329 272,330 275,911 v 128 z m 1115,238 V 0 H 2731 V 519 Q 2547,206 2267,57 1988,-91 1588,-91 q -535,0 -854,302 -318,302 -318,808 0,584 392,887 392,303 1151,303 h 772 v 91 q -3,419 -213,608 -209,189 -668,189 -294,0 -594,-85 -300,-84 -584,-246 v 575 q 319,122 611,182 292,61 567,61 434,0 742,-128 308,-128 499,-384 118,-156 168,-386 50,-230 50,-689 z"
-             transform="scale(0.015625)" />
-          <path
-             id="DejaVuSansMono-65"
-             d="M 3475,1894 V 1613 H 984 v -19 q 0,-572 298,-885 299,-312 843,-312 275,0 575,87 300,88 641,266 V 178 Q 3013,44 2708,-23 2403,-91 2119,-91 1303,-91 843,398 384,888 384,1747 q 0,837 450,1337 450,500 1200,500 669,0 1055,-453 386,-453 386,-1237 z m -575,169 q -12,506 -239,770 -227,264 -652,264 -415,0 -684,-275 -269,-275 -319,-763 z"
-             transform="scale(0.015625)" />
-          <path
-             id="DejaVuSansMono-6d"
-             d="m 2113,3144 q 106,225 270,332 164,108 395,108 422,0 595,-327 174,-326 174,-1229 V 0 h -525 v 2003 q 0,741 -83,920 -83,180 -301,180 -250,0 -343,-192 -92,-192 -92,-908 V 0 h -525 v 2003 q 0,750 -89,925 -89,175 -320,175 -228,0 -317,-192 -89,-192 -89,-908 V 0 H 341 v 3500 h 522 v -300 q 103,188 257,286 155,98 352,98 237,0 395,-109 158,-109 246,-331 z"
-             transform="scale(0.015625)" />
-          <path
-             id="DejaVuSansMono-6b"
-             d="m 738,4863 h 593 V 2047 l 1510,1453 h 700 L 2163,2181 3756,0 H 3053 L 1759,1806 1331,1403 V 0 H 738 Z"
-             transform="scale(0.015625)" />
-          <path
-             id="DejaVuSans-302"
-             d="m -1831,5119 h 462 l 766,-1175 h -435 l -562,765 -563,-765 h -434 z m 231,-1535 z"
-             transform="scale(0.015625)" />
-        </defs>
-        <use
-           xlink:href="#DejaVuSansMono-57"
-           transform="translate(0,0.828125)"
-           id="use95" />
-        <use
-           xlink:href="#DejaVuSansMono-61"
-           transform="translate(60.205078,0.828125)"
-           id="use97" />
-        <use
-           xlink:href="#DejaVuSansMono-74"
-           transform="translate(120.41016,0.828125)"
-           id="use99" />
-        <use
-           xlink:href="#DejaVuSansMono-65"
-           transform="translate(180.61523,0.828125)"
-           id="use101" />
-        <use
-           xlink:href="#DejaVuSansMono-72"
-           transform="translate(240.82031,0.828125)"
-           id="use103" />
-        <use
-           xlink:href="#DejaVuSansMono-6d"
-           transform="translate(301.02539,0.828125)"
-           id="use105" />
-        <use
-           xlink:href="#DejaVuSansMono-61"
-           transform="translate(361.23047,0.828125)"
-           id="use107" />
-        <use
-           xlink:href="#DejaVuSansMono-72"
-           transform="translate(421.43555,0.828125)"
-           id="use109" />
-        <use
-           xlink:href="#DejaVuSansMono-6b"
-           transform="translate(481.64062,0.828125)"
-           id="use111" />
-        <use
-           xlink:href="#DejaVuSansMono-65"
-           transform="translate(541.8457,0.828125)"
-           id="use113" />
-        <use
-           xlink:href="#DejaVuSansMono-64"
-           transform="translate(602.05078,0.828125)"
-           id="use115" />
-        <use
-           xlink:href="#DejaVuSansMono-20"
-           transform="translate(662.25586,0.828125)"
-           id="use117" />
-        <use
-           xlink:href="#DejaVuSans-302"
-           transform="translate(784.83398,12.015625)"
-           id="use119" />
-        <use
-           xlink:href="#DejaVuSans-Oblique-78"
-           transform="translate(722.46094,0.828125)"
-           id="use121" />
-      </g>
-    </g>
-  </g>
+  <use
+     xlink:href="#DejaVuSansMono-20"
+     transform="matrix(0.32,0,0,-0.32,597.76116,34.094991)"
+     id="use117" />
+  <use
+     xlink:href="#DejaVuSans-302"
+     transform="matrix(0.32,0,0,-0.32,636.98615,30.514991)"
+     id="use119" />
+  <use
+     xlink:href="#DejaVuSans-Oblique-78"
+     transform="matrix(0.32,0,0,-0.32,617.02678,34.094991)"
+     id="use121" />
   <g
      id="matplotlib.axis_5" />
-  <g
-     id="matplotlib.axis_6"
-     transform="rotate(90,874.07192,837.39216)">
-    <g
-       id="text_4">
-      <!-- Watermark $\kappa$ -->
-      <g
-         transform="matrix(0,-0.32,-0.32,0,68.349751,963.4)"
-         id="g160">
-        <defs
-           id="defs136">
-          <path
-             id="DejaVuSans-Oblique-3ba"
-             d="m 938,3500 h 593 L 1247,2047 3041,3500 h 700 L 2106,2181 3275,0 H 2572 L 1628,1806 1122,1403 850,0 H 256 Z"
-             transform="scale(0.015625)" />
-        </defs>
-        <use
-           xlink:href="#DejaVuSansMono-57"
-           transform="translate(0,0.015625)"
-           id="use138" />
-        <use
-           xlink:href="#DejaVuSansMono-61"
-           transform="translate(60.205078,0.015625)"
-           id="use140" />
-        <use
-           xlink:href="#DejaVuSansMono-74"
-           transform="translate(120.41016,0.015625)"
-           id="use142" />
-        <use
-           xlink:href="#DejaVuSansMono-65"
-           transform="translate(180.61523,0.015625)"
-           id="use144" />
-        <use
-           xlink:href="#DejaVuSansMono-72"
-           transform="translate(240.82031,0.015625)"
-           id="use146" />
-        <use
-           xlink:href="#DejaVuSansMono-6d"
-           transform="translate(301.02539,0.015625)"
-           id="use148" />
-        <use
-           xlink:href="#DejaVuSansMono-61"
-           transform="translate(361.23047,0.015625)"
-           id="use150" />
-        <use
-           xlink:href="#DejaVuSansMono-72"
-           transform="translate(421.43555,0.015625)"
-           id="use152" />
-        <use
-           xlink:href="#DejaVuSansMono-6b"
-           transform="translate(481.64062,0.015625)"
-           id="use154" />
-        <use
-           xlink:href="#DejaVuSansMono-20"
-           transform="translate(541.8457,0.015625)"
-           id="use156" />
-        <use
-           xlink:href="#DejaVuSans-Oblique-3ba"
-           transform="translate(602.05078,0.015625)"
-           id="use158" />
-      </g>
-    </g>
-  </g>
+  <use
+     xlink:href="#DejaVuSansMono-20"
+     transform="matrix(0.32,0,0,-0.32,921.4547,31.664991)"
+     id="use156" />
+  <use
+     xlink:href="#DejaVuSans-Oblique-3ba"
+     transform="matrix(0.32,0,0,-0.32,940.72033,31.664991)"
+     id="use158" />
   <g
      id="matplotlib.axis_2-3"
      transform="rotate(90,756.43514,718.40539)"
@@ -648,195 +544,6 @@
            xlink:href="#DejaVuSans-Oblique-78-3"
            transform="translate(782.66602,0.015625)"
            id="use57-7"
-           style="stroke-linecap:butt;stroke-linejoin:round" />
-      </g>
-    </g>
-  </g>
-  <g
-     id="matplotlib.axis_4-5"
-     transform="rotate(90,1081.8389,1046.4992)"
-     style="stroke-linecap:butt;stroke-linejoin:round">
-    <g
-       id="text_3-9"
-       style="stroke-linecap:butt;stroke-linejoin:round">
-      <!-- Watermarked $\hat{x}$ -->
-      <g
-         transform="matrix(0,-0.32,-0.32,0,68.349751,659)"
-         id="g123-2"
-         style="stroke-linecap:butt;stroke-linejoin:round">
-        <defs
-           id="defs93-2">
-          <path
-             id="path5018"
-             d="m 0,4666 h 616 l 447,-3788 531,2506 h 659 l 538,-2512 447,3794 h 615 L 3156,0 H 2559 L 1925,2772 1294,0 H 697 Z"
-             transform="scale(0.015625)" />
-          <path
-             id="path5020"
-             d="m 2194,1759 h -191 q -503,0 -758,-177 -254,-176 -254,-526 0,-315 190,-490 191,-175 528,-175 475,0 747,329 272,330 275,911 v 128 z m 1115,238 V 0 H 2731 V 519 Q 2547,206 2267,57 1988,-91 1588,-91 q -535,0 -854,302 -318,302 -318,808 0,584 392,887 392,303 1151,303 h 772 v 91 q -3,419 -213,608 -209,189 -668,189 -294,0 -594,-85 -300,-84 -584,-246 v 575 q 319,122 611,182 292,61 567,61 434,0 742,-128 308,-128 499,-384 118,-156 168,-386 50,-230 50,-689 z"
-             transform="scale(0.015625)" />
-          <path
-             id="path5022"
-             d="M 3475,1894 V 1613 H 984 v -19 q 0,-572 298,-885 299,-312 843,-312 275,0 575,87 300,88 641,266 V 178 Q 3013,44 2708,-23 2403,-91 2119,-91 1303,-91 843,398 384,888 384,1747 q 0,837 450,1337 450,500 1200,500 669,0 1055,-453 386,-453 386,-1237 z m -575,169 q -12,506 -239,770 -227,264 -652,264 -415,0 -684,-275 -269,-275 -319,-763 z"
-             transform="scale(0.015625)" />
-          <path
-             id="path5024"
-             d="m 2113,3144 q 106,225 270,332 164,108 395,108 422,0 595,-327 174,-326 174,-1229 V 0 h -525 v 2003 q 0,741 -83,920 -83,180 -301,180 -250,0 -343,-192 -92,-192 -92,-908 V 0 h -525 v 2003 q 0,750 -89,925 -89,175 -320,175 -228,0 -317,-192 -89,-192 -89,-908 V 0 H 341 v 3500 h 522 v -300 q 103,188 257,286 155,98 352,98 237,0 395,-109 158,-109 246,-331 z"
-             transform="scale(0.015625)" />
-          <path
-             id="path5026"
-             d="m 738,4863 h 593 V 2047 l 1510,1453 h 700 L 2163,2181 3756,0 H 3053 L 1759,1806 1331,1403 V 0 H 738 Z"
-             transform="scale(0.015625)" />
-          <path
-             id="path5028"
-             d="m -1831,5119 h 462 l 766,-1175 h -435 l -562,765 -563,-765 h -434 z m 231,-1535 z"
-             transform="scale(0.015625)" />
-        </defs>
-        <use
-           xlink:href="#DejaVuSansMono-57-8"
-           transform="translate(0,0.828125)"
-           id="use95-2"
-           style="stroke-linecap:butt;stroke-linejoin:round" />
-        <use
-           xlink:href="#DejaVuSansMono-61-9"
-           transform="translate(60.205078,0.828125)"
-           id="use97-9"
-           style="stroke-linecap:butt;stroke-linejoin:round" />
-        <use
-           xlink:href="#DejaVuSansMono-74-0"
-           transform="translate(120.41016,0.828125)"
-           id="use99-3"
-           style="stroke-linecap:butt;stroke-linejoin:round" />
-        <use
-           xlink:href="#DejaVuSansMono-65-7"
-           transform="translate(180.61523,0.828125)"
-           id="use101-1"
-           style="stroke-linecap:butt;stroke-linejoin:round" />
-        <use
-           xlink:href="#DejaVuSansMono-72-5"
-           transform="translate(240.82031,0.828125)"
-           id="use103-9"
-           style="stroke-linecap:butt;stroke-linejoin:round" />
-        <use
-           xlink:href="#DejaVuSansMono-6d-3"
-           transform="translate(301.02539,0.828125)"
-           id="use105-4"
-           style="stroke-linecap:butt;stroke-linejoin:round" />
-        <use
-           xlink:href="#DejaVuSansMono-61-9"
-           transform="translate(361.23047,0.828125)"
-           id="use107-7"
-           style="stroke-linecap:butt;stroke-linejoin:round" />
-        <use
-           xlink:href="#DejaVuSansMono-72-5"
-           transform="translate(421.43555,0.828125)"
-           id="use109-8"
-           style="stroke-linecap:butt;stroke-linejoin:round" />
-        <use
-           xlink:href="#DejaVuSansMono-6b-6"
-           transform="translate(481.64062,0.828125)"
-           id="use111-4"
-           style="stroke-linecap:butt;stroke-linejoin:round" />
-        <use
-           xlink:href="#DejaVuSansMono-65-7"
-           transform="translate(541.8457,0.828125)"
-           id="use113-5"
-           style="stroke-linecap:butt;stroke-linejoin:round" />
-        <use
-           xlink:href="#DejaVuSansMono-64-1"
-           transform="translate(602.05078,0.828125)"
-           id="use115-0"
-           style="stroke-linecap:butt;stroke-linejoin:round" />
-        <use
-           xlink:href="#DejaVuSansMono-20-2"
-           transform="translate(662.25586,0.828125)"
-           id="use117-3"
-           style="stroke-linecap:butt;stroke-linejoin:round" />
-        <use
-           xlink:href="#DejaVuSans-302-1"
-           transform="translate(784.83398,12.015625)"
-           id="use119-6"
-           style="stroke-linecap:butt;stroke-linejoin:round" />
-        <use
-           xlink:href="#DejaVuSans-Oblique-78-3"
-           transform="translate(722.46094,0.828125)"
-           id="use121-1"
-           style="stroke-linecap:butt;stroke-linejoin:round" />
-      </g>
-    </g>
-  </g>
-  <g
-     id="matplotlib.axis_6-0"
-     transform="rotate(90,1416.4963,1378.4666)"
-     style="stroke-linecap:butt;stroke-linejoin:round">
-    <g
-       id="text_4-6"
-       style="stroke-linecap:butt;stroke-linejoin:round">
-      <!-- Watermark $\kappa$ -->
-      <g
-         transform="matrix(0,-0.32,-0.32,0,68.349751,963.4)"
-         id="g160-3"
-         style="stroke-linecap:butt;stroke-linejoin:round">
-        <defs
-           id="defs136-2">
-          <path
-             id="path5048"
-             d="m 938,3500 h 593 L 1247,2047 3041,3500 h 700 L 2106,2181 3275,0 H 2572 L 1628,1806 1122,1403 850,0 H 256 Z"
-             transform="scale(0.015625)" />
-        </defs>
-        <use
-           xlink:href="#DejaVuSansMono-57-8"
-           transform="translate(0,0.015625)"
-           id="use138-6"
-           style="stroke-linecap:butt;stroke-linejoin:round" />
-        <use
-           xlink:href="#DejaVuSansMono-61-9"
-           transform="translate(60.205078,0.015625)"
-           id="use140-1"
-           style="stroke-linecap:butt;stroke-linejoin:round" />
-        <use
-           xlink:href="#DejaVuSansMono-74-0"
-           transform="translate(120.41016,0.015625)"
-           id="use142-5"
-           style="stroke-linecap:butt;stroke-linejoin:round" />
-        <use
-           xlink:href="#DejaVuSansMono-65-7"
-           transform="translate(180.61523,0.015625)"
-           id="use144-5"
-           style="stroke-linecap:butt;stroke-linejoin:round" />
-        <use
-           xlink:href="#DejaVuSansMono-72-5"
-           transform="translate(240.82031,0.015625)"
-           id="use146-4"
-           style="stroke-linecap:butt;stroke-linejoin:round" />
-        <use
-           xlink:href="#DejaVuSansMono-6d-3"
-           transform="translate(301.02539,0.015625)"
-           id="use148-7"
-           style="stroke-linecap:butt;stroke-linejoin:round" />
-        <use
-           xlink:href="#DejaVuSansMono-61-9"
-           transform="translate(361.23047,0.015625)"
-           id="use150-6"
-           style="stroke-linecap:butt;stroke-linejoin:round" />
-        <use
-           xlink:href="#DejaVuSansMono-72-5"
-           transform="translate(421.43555,0.015625)"
-           id="use152-5"
-           style="stroke-linecap:butt;stroke-linejoin:round" />
-        <use
-           xlink:href="#DejaVuSansMono-6b-6"
-           transform="translate(481.64062,0.015625)"
-           id="use154-6"
-           style="stroke-linecap:butt;stroke-linejoin:round" />
-        <use
-           xlink:href="#DejaVuSansMono-20-2"
-           transform="translate(541.8457,0.015625)"
-           id="use156-9"
-           style="stroke-linecap:butt;stroke-linejoin:round" />
-        <use
-           xlink:href="#DejaVuSans-Oblique-3ba-0"
-           transform="translate(602.05078,0.015625)"
-           id="use158-3"
            style="stroke-linecap:butt;stroke-linejoin:round" />
       </g>
     </g>
@@ -2295,4 +2002,63 @@
          id="path3528" />
     </g>
   </g>
+  <text
+     xml:space="preserve"
+     style="font-size:18px;line-height:1.25;font-family:FreeSerif;-inkscape-font-specification:'FreeSerif, Normal';font-variant-ligatures:none;letter-spacing:0px;word-spacing:0px;stroke-width:0.75;stroke-linecap:butt;stroke-linejoin:round"
+     x="395.26233"
+     y="33.417435"
+     id="text873"><tspan
+       sodipodi:role="line"
+       id="tspan871"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:40px;font-family:monospace;-inkscape-font-specification:'monospace, Normal';font-variant-ligatures:none;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;stroke-width:0.75"
+       x="395.26233"
+       y="33.417435">+Signature</tspan></text>
+  <text
+     xml:space="preserve"
+     style="font-size:18px;line-height:1.25;font-family:FreeSerif;-inkscape-font-specification:'FreeSerif, Normal';font-variant-ligatures:none;letter-spacing:0px;word-spacing:0px;stroke-width:0.75;stroke-linecap:butt;stroke-linejoin:round"
+     x="745.85754"
+     y="35.232094"
+     id="text873-3"><tspan
+       sodipodi:role="line"
+       id="tspan871-9"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:40px;font-family:monospace;-inkscape-font-specification:'monospace, Normal';font-variant-ligatures:none;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;stroke-width:0.75"
+       x="745.85754"
+       y="35.232094">Signature</tspan></text>
+  <use
+     xlink:href="#DejaVuSans-302"
+     transform="matrix(0.32,0,0,-0.32,1709.5774,28.03793)"
+     id="use119-4"
+     style="stroke-linecap:butt;stroke-linejoin:round" />
+  <use
+     xlink:href="#DejaVuSans-Oblique-78"
+     transform="matrix(0.32,0,0,-0.32,1689.618,31.61793)"
+     id="use121-7"
+     style="stroke-linecap:butt;stroke-linejoin:round" />
+  <text
+     xml:space="preserve"
+     style="font-size:18px;line-height:1.25;font-family:FreeSerif;-inkscape-font-specification:'FreeSerif, Normal';font-variant-ligatures:none;letter-spacing:0px;word-spacing:0px;stroke-width:0.75;stroke-linecap:butt;stroke-linejoin:round"
+     x="1467.8535"
+     y="30.940372"
+     id="text873-6"><tspan
+       sodipodi:role="line"
+       id="tspan871-3"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:40px;font-family:monospace;-inkscape-font-specification:'monospace, Normal';font-variant-ligatures:none;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;stroke-width:0.75"
+       x="1467.8535"
+       y="30.940372">+Signature</tspan></text>
+  <use
+     xlink:href="#DejaVuSans-Oblique-3ba"
+     transform="matrix(0.32,0,0,-0.32,2022.2434,25.678014)"
+     id="use158-1"
+     style="stroke-linecap:butt;stroke-linejoin:round" />
+  <text
+     xml:space="preserve"
+     style="font-size:18px;line-height:1.25;font-family:FreeSerif;-inkscape-font-specification:'FreeSerif, Normal';font-variant-ligatures:none;letter-spacing:0px;word-spacing:0px;stroke-width:0.75;stroke-linecap:butt;stroke-linejoin:round"
+     x="1827.3806"
+     y="29.245117"
+     id="text873-3-7"><tspan
+       sodipodi:role="line"
+       id="tspan871-9-5"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:40px;font-family:monospace;-inkscape-font-specification:'monospace, Normal';font-variant-ligatures:none;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;stroke-width:0.75"
+       x="1827.3806"
+       y="29.245117">Signature</tspan></text>
 </svg>
